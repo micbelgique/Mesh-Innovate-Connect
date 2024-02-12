@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: messageShow
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":"Message
+      de bienvenue","summary":"Comportement du message","pan":{"x":8.0,"y":8.0},"zoom":1.0,"elements":[{"coroutine":false,"defaultValues":{"target":null},"position":{"x":-346.0,"y":-183.0},"guid":"44c474bb-ce87-432e-b522-28752360807e","$version":"A","$type":"Unity.VisualScripting.OnTriggerEnter","$id":"9"},{"defaultValues":{"text":{"$content":"Bienvenue
+      dans la zone d\u00e9tente","$type":"System.String"},"buttons":{"$content":"Continue","$type":"Microsoft.Mesh.VisualScripting.IMessageDialog+Button"},"result":null,"target":null},"position":{"x":-5.0,"y":-202.0},"guid":"caabfb1a-d36a-481e-9b28-b9b564fd029e","$version":"A","$type":"Microsoft.Mesh.VisualScripting.DialogActionUnit","$id":"11"},{"coroutine":false,"defaultValues":{"target":null},"position":{"x":-353.0,"y":-4.0},"guid":"4ec4b216-d20f-4fbf-ad0d-f402a9189f64","$version":"A","$type":"Unity.VisualScripting.OnTriggerExit","$id":"13"},{"chainable":false,"member":{"name":"enabled","parameterTypes":null,"targetType":"UnityEngine.Collider","targetTypeName":"UnityEngine.Collider","$version":"A"},"defaultValues":{"target":null,"input":{"$content":false,"$type":"System.Boolean"}},"position":{"x":-87.0,"y":10.0},"guid":"6febf838-3d97-4854-b00a-d70d273f4678","$version":"A","$type":"Unity.VisualScripting.SetMember","$id":"15"},{"sourceUnit":{"$ref":"9"},"sourceKey":"trigger","destinationUnit":{"$ref":"11"},"destinationKey":"enter","guid":"ab43a45e-6eb5-474e-92ef-73e67e93e499","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"13"},"sourceKey":"trigger","destinationUnit":{"$ref":"15"},"destinationKey":"assign","guid":"ae5117f5-d9e6-450a-9db7-deca0be11a18","$type":"Unity.VisualScripting.ControlConnection"}],"$version":"A"}}'
+    _objectReferences: []

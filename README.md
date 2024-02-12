@@ -3,7 +3,7 @@
     <img src="/" alt="Logo" width="80" height="80">
   </a>
 
-  <h2 align="center">Project name</h2>
+  <h2 align="center">Mesh Innovate Create</h2>
 </div>
 
 

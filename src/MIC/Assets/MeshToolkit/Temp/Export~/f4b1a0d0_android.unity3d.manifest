@@ -1,0 +1,81 @@
+ManifestFileVersion: 0
+CRC: 69755413
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0652d6cd457a8c052eb85e9aecdb27a6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c6c96fbb2838eed6e20ef35ca25b9c1d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+- Class: 114
+  Script: {fileID: 1932828386, guid: 23f4952d963b87044852157c8bad25cc, type: 3}
+- Class: 114
+  Script: {fileID: -123875206, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: -985415299, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: 1258557776, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: 761857578, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: -136581813, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: 1211175015, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: 908537426, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
+- Class: 114
+  Script: {fileID: 181583199, guid: 4488831ea16acef4f905be2e5847bff3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 765181c9ef4b24d32a4f7cbd2ef370dc, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 196
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/MeshToolkit/Temp/AssetCopies/f4b1a0d0/0/SampleScene.unity
+Dependencies: []

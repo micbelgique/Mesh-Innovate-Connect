@@ -1,18 +1,18 @@
 {
   "uploadEntries": [
     {
-      "assetId": "f4b1a0d0-50c0-4d8f-b704-f2f29a0b5410",
-      "name": "Mesh Innovate Create",
+      "assetId": "ee4a7b46-448d-47ef-a41c-3220a1dcce79",
+      "name": "test",
       "isEnabled": true,
       "uploadItems": [
         {
-          "prefabFilepath": "Assets/Scenes/SampleScene.unity",
+          "prefabFilepath": "Assets/Scenes/Presentation1.unity",
           "forAndroid": true,
           "forWin": true
         }
       ],
       "perPlatformAssets": false,
-      "thumbnailImagesFolder": "Assets\\MeshToolkit\\Thumbnails\\f4b1a0d0",
+      "thumbnailImagesFolder": "Assets\\MeshToolkit\\Thumbnails\\ee4a7b46",
       "includeThumbnail": false,
       "thumbnailGenerationBehavior": "Autogenerate",
       "metaverseId": "20ccc01b-ba35-4ea5-96bb-e5f33d687acf"

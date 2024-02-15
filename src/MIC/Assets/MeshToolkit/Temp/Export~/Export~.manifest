@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 3032121129
+CRC: 1782681689
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: ee4a7b46_pc.unity3d
+      Name: ee4a7b46_android.unity3d
       Dependencies: {}

@@ -50,6 +50,13 @@
       "scopes": [
         "com.microsoft"
       ]
+    },
+    {
+      "name": "gltf utility",
+      "url": "https://github.com/siccity/gltfutility.git",
+      "scopes": [
+        "com.siccity.gltfutility"
+      ]
     }
   ]
 }

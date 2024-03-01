@@ -12,6 +12,7 @@ namespace CloudScripting.Sample
     using System.Xml.Linq;
     using System.Reflection;
     using System.Net.Http.Headers;
+    using Presentation1;
 
     public class AppSettings
     {
@@ -29,15 +30,16 @@ namespace CloudScripting.Sample
         private readonly ILogger<App> _logger;
         private readonly ICloudApplication _app;
         private readonly AppSettings _appSettings;
+        private readonly List<PlayerEscape> _playersEscape;
 
-        private float _angle = 0;
+ 
 
         public App(ICloudApplication app, ILogger<App> logger)
         {
             _app = app;
             _logger = logger;
-
             _appSettings = LoadSettings();
+            _playersEscape = new List<PlayerEscape>();
         }
 
         private AppSettings? LoadSettings()
@@ -66,8 +68,6 @@ namespace CloudScripting.Sample
         public async Task StartAsync(CancellationToken token)
         {
             var image = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/WebSlate");
-
-
             var salameche = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/ButtonSalameche/Sphere");
             var buttonSalameche = salameche.FindFirstChild<InteractableNode>();
             buttonSalameche.Selected += async (_, args) =>
@@ -87,6 +87,9 @@ namespace CloudScripting.Sample
                 await GetImage(image, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png");
             };
 
+
+
+
             var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
             var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();
             var btnCube = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonCube");
@@ -101,6 +104,59 @@ namespace CloudScripting.Sample
                 await UploadImageToBlobStorage(2, _appSettings);
                 btnSphere.IsActive = false;
             };
+
+
+
+            var transformTriggerZone = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone");
+            var triggerZone = (BoxGeometryNode)transformTriggerZone.FindFirstChild<BoxGeometryNode>();
+            
+
+            triggerZone.Entered += async (sender, args) =>
+            {
+                UpdatePlayersEscape(args.Avatar);
+                UpdateLabelTeams();
+            };
+        }
+
+        private void UpdateLabelTeams()
+        {
+            var greenTeam = (TransformNode) _app.Scene.FindChildByPath("TriggerEscapeZone/TeamBoard/Tags/TeamGreen/Members");
+            var membersGreenTeam = greenTeam.FindFirstChild<TextNode>();
+
+            var redTeam = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TeamBoard/Tags/TeamRed/Members");
+            var membersRedTeam =  redTeam.FindFirstChild<TextNode>();
+            membersGreenTeam.Text = "";
+            membersRedTeam.Text = "";
+
+            foreach (PlayerEscape player in _playersEscape)
+            {
+                if(player.Team.Equals("Green Team"))
+                {
+                    membersGreenTeam.Text = membersGreenTeam.Text + player.Avatar.Participant.DisplayName + '\n';
+                } else
+                {
+                    membersRedTeam.Text = membersRedTeam.Text + player.Avatar.Participant.DisplayName + '\n';
+                }
+            }
+        }
+
+
+
+        private void UpdatePlayersEscape(Avatar player)
+        {
+
+            bool playerExists = _playersEscape.Any(p => p.Avatar == player);
+
+            if (!playerExists)
+            {
+                PlayerEscape playerEscape = new PlayerEscape(player);
+                PlayerEscape.SetEquipe(playerEscape, _playersEscape);
+                _playersEscape.Add(playerEscape);
+            } else
+            {
+                PlayerEscape playerRemove = _playersEscape.First(p => p.Avatar == player);
+                _playersEscape.Remove(playerRemove);
+            }
 
         }
 

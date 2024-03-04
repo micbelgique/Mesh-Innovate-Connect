@@ -1,21 +1,21 @@
 {
   "uploadEntries": [
     {
-      "assetId": "eb101d55-01c1-4e53-b67b-f5e0d98b1655",
-      "name": "MIC",
+      "assetId": "",
+      "name": "",
       "isEnabled": true,
       "uploadItems": [
         {
-          "prefabFilepath": "Assets/Scenes/Presentation1.unity",
-          "forAndroid": true,
-          "forWin": true
+          "prefabFilepath": "",
+          "buildPlatforms": [
+            "android",
+            "pc"
+          ]
         }
       ],
       "perPlatformAssets": false,
-      "thumbnailImagesFolder": "Assets\\MeshToolkit\\Thumbnails\\eb101d55",
       "includeThumbnail": false,
-      "thumbnailGenerationBehavior": "Autogenerate",
-      "metaverseId": "20ccc01b-ba35-4ea5-96bb-e5f33d687acf"
+      "thumbnailGenerationBehavior": "Autogenerate"
     }
   ]
 }

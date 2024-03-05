@@ -15,6 +15,8 @@ namespace CloudScripting.Sample
     using Presentation1;
     using System.Security.Cryptography.X509Certificates;
     using MeshApp.Animations;
+    using System.Timers;
+
     public class AppSettings
     {
         public DeepEyesSettings DeepEyes { get; set; }
@@ -41,6 +43,7 @@ namespace CloudScripting.Sample
             _playersEscape = new List<Avatar>();
             redTeam = new TeamEscape("Red");
             greenTeam = new TeamEscape("Green");
+
         }
         private AppSettings? LoadSettings()
         {
@@ -101,11 +104,12 @@ namespace CloudScripting.Sample
             };
             var transformTriggerZone = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone");
             var triggerZone = (BoxGeometryNode)transformTriggerZone.FindFirstChild<BoxGeometryNode>();
-            triggerZone.Entered += (sender, args) =>
+            triggerZone.Entered += async (sender, args) =>
             {
                 countPlayer(args.Avatar, true);
                 if (playerNumber >= 2)
                 {
+                    Thread.Sleep(5000);
                     TeamEscape.InitTeams(redTeam, greenTeam, _playersEscape);
                     UpdateLabelTeams();
                 }
@@ -125,6 +129,8 @@ namespace CloudScripting.Sample
             membersRedTeam.Text = "";
             var spawnEquipe = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TravelPointGroup/spawnEquipe");
             var spawnEquipeNode = (TravelPointNode)spawnEquipe.FindFirstChild<TravelPointNode>();
+            var border = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/Border");
+            border.IsActive = true;
 
             foreach (Avatar player in greenTeam.Participants)
             {
@@ -134,7 +140,7 @@ namespace CloudScripting.Sample
 
             foreach (Avatar player in redTeam.Participants)
             {
-                membersRedTeam.Text = membersGreenTeam.Text + player.Participant.DisplayName + '\n';
+                membersRedTeam.Text = membersRedTeam.Text + player.Participant.DisplayName + '\n';
                 player.TravelTo(spawnEquipeNode);
             }
         }

@@ -139,22 +139,26 @@ namespace CloudScripting.Sample
             var membersRedTeam = transformRed.FindFirstChild<TextNode>();
             membersGreenTeam.Text = "";
             membersRedTeam.Text = "";
-            var spawnEquipe = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TravelPointGroup/spawnEquipe");
-            var spawnEquipeNode = (TravelPointNode)spawnEquipe.FindFirstChild<TravelPointNode>();
+            var spawnEquipeRed = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TravelPointGroup/spawnEquipeRed");
+            spawnEquipeRed.IsActive = true;
+            var spawnEquipeGreen = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TravelPointGroup/spawnEquipeGreen");
+            spawnEquipeGreen.IsActive = true;
             var border = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/Border");
             border.IsActive = true;
 
             foreach (Avatar player in greenTeam.Participants)
             {
                 membersGreenTeam.Text = membersGreenTeam.Text + player.Participant.DisplayName + '\n';
-                player.TravelTo(spawnEquipeNode);
+                player.TravelTo((TravelPointNode)spawnEquipeGreen.FindFirstChild<TravelPointNode>());
             }
 
             foreach (Avatar player in redTeam.Participants)
             {
                 membersRedTeam.Text = membersRedTeam.Text + player.Participant.DisplayName + '\n';
-                player.TravelTo(spawnEquipeNode);
+                player.TravelTo((TravelPointNode)spawnEquipeRed.FindFirstChild<TravelPointNode>());
             }
+            spawnEquipeRed.IsActive = false;
+            spawnEquipeGreen.IsActive = false;
         }
 
         private void countPlayer(Avatar player, bool enter)
@@ -175,7 +179,7 @@ namespace CloudScripting.Sample
             }
         }
 
-      
+
 
         public async Task<string> GetImage(TransformNode node, string imageUrl)
         {

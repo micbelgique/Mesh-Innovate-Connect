@@ -104,7 +104,7 @@ namespace CloudScripting.Sample
             triggerZone.Entered += (sender, args) =>
             {
                 countPlayer(args.Avatar, true);
-                if (playerNumber >= 4)
+                if (playerNumber >= 2)
                 {
                     TeamEscape.InitTeams(redTeam, greenTeam, _playersEscape);
                     UpdateLabelTeams();

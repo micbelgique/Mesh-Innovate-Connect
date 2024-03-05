@@ -114,13 +114,13 @@ namespace CloudScripting.Sample
                     {
                         try
                         {
-                            await Task.Delay(5000, cancellationTokenSource.Token); // Asynchronously wait for 5 seconds
+                            await Task.Delay(5000, cancellationTokenSource.Token);
                             TeamEscape.InitTeams(redTeam, greenTeam, _playersEscape);
                             UpdateLabelTeams();
                         }
                         catch (TaskCanceledException)
                         {
-                            Console.WriteLine("test");
+                            cancellationTokenSource = new CancellationTokenSource();
                         }
                     }
                 }
@@ -129,7 +129,6 @@ namespace CloudScripting.Sample
             {
                 countPlayer(args.Avatar, false);
                 cancellationTokenSource.Cancel();
-                cancellationTokenSource = new CancellationTokenSource();
             };
         }
         private void UpdateLabelTeams()
@@ -160,7 +159,7 @@ namespace CloudScripting.Sample
 
         private void countPlayer(Avatar player, bool enter)
         {
-            var playerNumberDisplay = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TeamBoard/Tags/NumberTag");
+            var playerNumberDisplay = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/NumberBoard/Tags/NumberTag");
             var playerNumberText = playerNumberDisplay.FindFirstChild<TextNode>();
             if (enter)
             {

@@ -16,6 +16,7 @@ namespace CloudScripting.Sample
     using System.Security.Cryptography.X509Certificates;
     using MeshApp.Animations;
     using System.Timers;
+    using System.Threading;
 
     public class AppSettings
     {
@@ -104,19 +105,31 @@ namespace CloudScripting.Sample
             };
             var transformTriggerZone = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone");
             var triggerZone = (BoxGeometryNode)transformTriggerZone.FindFirstChild<BoxGeometryNode>();
+            var cancellationTokenSource = new CancellationTokenSource();
             triggerZone.Entered += async (sender, args) =>
             {
                 countPlayer(args.Avatar, true);
                 if (playerNumber >= 2)
                 {
-                    Thread.Sleep(5000);
-                    TeamEscape.InitTeams(redTeam, greenTeam, _playersEscape);
-                    UpdateLabelTeams();
+                    {
+                        try
+                        {
+                            await Task.Delay(5000, cancellationTokenSource.Token); // Asynchronously wait for 5 seconds
+                            TeamEscape.InitTeams(redTeam, greenTeam, _playersEscape);
+                            UpdateLabelTeams();
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            Console.WriteLine("test");
+                        }
+                    }
                 }
             };
             triggerZone.Exited += async (sender, args) =>
             {
                 countPlayer(args.Avatar, false);
+                cancellationTokenSource.Cancel();
+                cancellationTokenSource = new CancellationTokenSource();
             };
         }
         private void UpdateLabelTeams()

@@ -75,19 +75,19 @@ namespace CloudScripting.Sample
             var buttonSalameche = salameche.FindFirstChild<InteractableNode>();
             buttonSalameche.Selected += async (_, args) =>
             {
-                await GetImage(image, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png");
+                await GetImage(image, "https://www.meteo.be/fr/mons");
             };
             var bulbizare = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/ButtonBulbizare/Sphere");
             var buttonBulbizare = bulbizare.FindFirstChild<InteractableNode>();
             buttonBulbizare.Selected += async (_, args) =>
             {
-                await GetImage(image, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
+                await GetImage(image, "https://www.meteo.be/fr/bruxelles");
             };
             var carapuce = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/ButtonCarapuce/Sphere");
             var buttonCarapuce = carapuce.FindFirstChild<InteractableNode>();
             buttonCarapuce.Selected += async (_, args) =>
             {
-                await GetImage(image, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png");
+                await GetImage(image, "https://www.meteo.be/fr/arlon");
             };
             var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
             var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();

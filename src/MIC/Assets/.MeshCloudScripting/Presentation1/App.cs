@@ -32,18 +32,14 @@ namespace CloudScripting.Sample
         private readonly ILogger<App> _logger;
         private readonly ICloudApplication _app;
         private readonly AppSettings _appSettings;
-        private readonly List<Avatar> _playersEscape;
-        private readonly TeamEscape redTeam;
-        private readonly TeamEscape greenTeam;
-        private int playerNumber;
+        private readonly PersonFlow _personFlow;
+
         public App(ICloudApplication app, ILogger<App> logger)
         {
             _app = app;
             _logger = logger;
             _appSettings = LoadSettings();
-            _playersEscape = new List<Avatar>();
-            redTeam = new TeamEscape("Red");
-            greenTeam = new TeamEscape("Green");
+            _personFlow = new PersonFlow();
 
         }
         private AppSettings? LoadSettings()
@@ -70,25 +66,7 @@ namespace CloudScripting.Sample
         }
         public async Task StartAsync(CancellationToken token)
         {
-            var image = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/WebSlate");
-            var salameche = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/ButtonSalameche/Sphere");
-            var buttonSalameche = salameche.FindFirstChild<InteractableNode>();
-            buttonSalameche.Selected += async (_, args) =>
-            {
-                await GetImage(image, "https://www.meteo.be/fr/mons");
-            };
-            var bulbizare = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/ButtonBulbizare/Sphere");
-            var buttonBulbizare = bulbizare.FindFirstChild<InteractableNode>();
-            buttonBulbizare.Selected += async (_, args) =>
-            {
-                await GetImage(image, "https://www.meteo.be/fr/bruxelles");
-            };
-            var carapuce = (TransformNode)_app.Scene.FindChildByPath("MultipleImport/ButtonCarapuce/Sphere");
-            var buttonCarapuce = carapuce.FindFirstChild<InteractableNode>();
-            buttonCarapuce.Selected += async (_, args) =>
-            {
-                await GetImage(image, "https://www.meteo.be/fr/arlon");
-            };
+
             var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
             var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();
             var btnCube = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonCube");
@@ -103,82 +81,12 @@ namespace CloudScripting.Sample
                 await UploadImageToBlobStorage(2, _appSettings);
                 btnSphere.IsActive = false;
             };
-            var transformTriggerZone = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone");
-            var triggerZone = (BoxGeometryNode)transformTriggerZone.FindFirstChild<BoxGeometryNode>();
-            var cancellationTokenSource = new CancellationTokenSource();
-            triggerZone.Entered += async (sender, args) =>
-            {
-                countPlayer(args.Avatar, true);
-                if (playerNumber >= 2)
-                {
-                    {
-                        try
-                        {
-                            await Task.Delay(5000, cancellationTokenSource.Token);
-                            TeamEscape.InitTeams(redTeam, greenTeam, _playersEscape);
-                            UpdateLabelTeams();
-                        }
-                        catch (TaskCanceledException)
-                        {
-                            cancellationTokenSource = new CancellationTokenSource();
-                        }
-                    }
-                }
-            };
-            triggerZone.Exited += async (sender, args) =>
-            {
-                countPlayer(args.Avatar, false);
-                cancellationTokenSource.Cancel();
-            };
+
+            var npc = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");
+            var move = 5;
+            _personFlow.Boucle(npc, move);
+            
         }
-        private void UpdateLabelTeams()
-        {
-            var transformGreen = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TeamBoard/Tags/TeamGreen/Members");
-            var membersGreenTeam = transformGreen.FindFirstChild<TextNode>();
-            var transformRed = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TeamBoard/Tags/TeamRed/Members");
-            var membersRedTeam = transformRed.FindFirstChild<TextNode>();
-            membersGreenTeam.Text = "";
-            membersRedTeam.Text = "";
-            var spawnEquipeRed = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TravelPointGroup/spawnEquipeRed");
-            spawnEquipeRed.IsActive = true;
-            var spawnEquipeGreen = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/TravelPointGroup/spawnEquipeGreen");
-            spawnEquipeGreen.IsActive = true;
-            var border = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/Border");
-            border.IsActive = true;
-
-            foreach (Avatar player in greenTeam.Participants)
-            {
-                membersGreenTeam.Text = membersGreenTeam.Text + player.Participant.DisplayName + '\n';
-                player.TravelTo((TravelPointNode)spawnEquipeGreen.FindFirstChild<TravelPointNode>());
-            }
-
-            foreach (Avatar player in redTeam.Participants)
-            {
-                membersRedTeam.Text = membersRedTeam.Text + player.Participant.DisplayName + '\n';
-                player.TravelTo((TravelPointNode)spawnEquipeRed.FindFirstChild<TravelPointNode>());
-            }
-            spawnEquipeRed.IsActive = false;
-            spawnEquipeGreen.IsActive = false;
-        }
-
-        private void countPlayer(Avatar player, bool enter)
-        {
-            var playerNumberDisplay = (TransformNode)_app.Scene.FindChildByPath("TriggerEscapeZone/NumberBoard/Tags/NumberTag");
-            var playerNumberText = playerNumberDisplay.FindFirstChild<TextNode>();
-            if (enter)
-            {
-                playerNumber++;
-                _playersEscape.Add(player);
-                playerNumberText.Text = playerNumber + "/10";
-            }
-            else
-            {
-                playerNumber--;
-                _playersEscape.Remove(player);
-                playerNumberText.Text = playerNumber + "/10";
-            }
-        }
-
 
 
         public async Task<string> GetImage(TransformNode node, string imageUrl)

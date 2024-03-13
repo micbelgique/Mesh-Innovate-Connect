@@ -5,18 +5,12 @@ namespace CloudScripting.Sample
     using System.Net.Http;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
-    using System.Web;
     using System.IO;
-    using System.Numerics;
-    using System.Linq;
-    using System.Xml.Linq;
-    using System.Reflection;
     using System.Net.Http.Headers;
     using Presentation1;
-    using System.Security.Cryptography.X509Certificates;
-    using MeshApp.Animations;
-    using System.Timers;
     using System.Threading;
+    using System.Collections;
+    using System.Numerics;
 
     public class AppSettings
     {
@@ -27,20 +21,23 @@ namespace CloudScripting.Sample
         public string Url { get; set; }
         public string Token { get; set; }
     }
+
     public class App : IHostedService, IAsyncDisposable
     {
         private readonly ILogger<App> _logger;
         private readonly ICloudApplication _app;
         private readonly AppSettings _appSettings;
         private readonly PersonFlow _personFlow;
-
+        private readonly QLearning _qLearning1;
+        private readonly QLearning _qLearning2;
         public App(ICloudApplication app, ILogger<App> logger)
         {
             _app = app;
             _logger = logger;
             _appSettings = LoadSettings();
             _personFlow = new PersonFlow();
-
+            _qLearning1 = new QLearning(100, 4, 0.5, 0.9, 0.1);
+            _qLearning2 = new QLearning(100, 4, 0.5, 0.9, 0.1);
         }
         private AppSettings? LoadSettings()
         {
@@ -66,7 +63,6 @@ namespace CloudScripting.Sample
         }
         public async Task StartAsync(CancellationToken token)
         {
-
             var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
             var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();
             var btnCube = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonCube");
@@ -82,12 +78,15 @@ namespace CloudScripting.Sample
                 btnSphere.IsActive = false;
             };
 
-            var npc = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");
-            var move = 5;
-            _personFlow.Boucle(npc, move);
-            
-        }
+            var npc1 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");
+            var npc2 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character1");
+            _qLearning1.MoveAction(npc1, 1000);
+            _qLearning2.MoveAction(npc2, 1000);
+            // Apply the chosen action to the NPC
 
+            //var move = 5;
+            //_personFlow.Boucle(npc, move);
+        }
 
         public async Task<string> GetImage(TransformNode node, string imageUrl)
         {

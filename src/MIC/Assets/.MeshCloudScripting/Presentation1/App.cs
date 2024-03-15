@@ -28,16 +28,19 @@ namespace CloudScripting.Sample
         private readonly ICloudApplication _app;
         private readonly AppSettings _appSettings;
         private readonly PersonFlow _personFlow;
-        private readonly QLearning _qLearning1;
-        private readonly QLearning _qLearning2;
+        private readonly List<QLearning> _qLearnings;
         public App(ICloudApplication app, ILogger<App> logger)
         {
             _app = app;
             _logger = logger;
             _appSettings = LoadSettings();
             _personFlow = new PersonFlow();
-            _qLearning1 = new QLearning(100, 4, 0.5, 0.9, 0.1);
-            _qLearning2 = new QLearning(100, 4, 0.5, 0.9, 0.1);
+            _qLearnings = new List<QLearning>();
+            for (int i = 0; i < 5; i++)
+            {
+                int numStates = 1800;
+                _qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.9, 0.6));
+            }
         }
         private AppSettings? LoadSettings()
         {
@@ -77,12 +80,18 @@ namespace CloudScripting.Sample
                 await UploadImageToBlobStorage(2, _appSettings);
                 btnSphere.IsActive = false;
             };
-
+            Vector3 destination = new Vector3(-25, 0, 1);
+            var wall = (TransformNode)_app.Scene.FindChildByPath("QLearning/Wall");
             var npc1 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");
             var npc2 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character1");
-            _qLearning1.MoveAction(npc1, 1000);
-            _qLearning2.MoveAction(npc2, 1000);
-            // Apply the chosen action to the NPC
+            var npc3 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character2");
+            var npc4 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character3");
+            var npc5 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character4");
+            _qLearnings[0].MoveAction(npc1, destination, 0,  10000);
+            //_qLearnings[1].MoveAction(npc2, destination, 1, 100);
+            //_qLearnings[2].MoveAction(npc3, destination, 10000);
+            //_qLearnings[3].MoveAction(npc4, destination, 10000);
+            //_qLearnings[4].MoveAction(npc5, destination, 10000);
 
             //var move = 5;
             //_personFlow.Boucle(npc, move);

@@ -39,7 +39,7 @@ namespace CloudScripting.Sample
             for (int i = 0; i < 5; i++)
             {
                 int numStates = 1800;
-                _qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.9, 0.6));
+                _qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.9, 0.6, 0));
             }
         }
         private AppSettings? LoadSettings()

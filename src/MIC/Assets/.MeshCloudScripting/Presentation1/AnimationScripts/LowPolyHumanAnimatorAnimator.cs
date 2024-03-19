@@ -13,7 +13,7 @@ namespace MeshApp.Animations
     [UserCreatable(false)]
     public class LowPolyHumanAnimatorAnimator : AnimationNode
     {
-        private readonly float[] _baseLayerSpeeds = { 1F, };
+        private readonly float[] _baseLayerSpeeds = { 1F, 1F, };
 
         protected LowPolyHumanAnimatorAnimator(in Guid ahandle, bool transfer)
         : base(ahandle, transfer)
@@ -22,6 +22,7 @@ namespace MeshApp.Animations
         public enum BaseLayerState
         {
             Idle,
+            WalkForward,
         }
 
         [Replication(ReplicationKind.Full)]

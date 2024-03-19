@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Numerics;
 using Microsoft.Mesh.CloudScripting;
 using Newtonsoft.Json;
 
@@ -7,14 +10,27 @@ namespace Presentation1
     public class QLearning
     {
         private double[,] qTable; // Table for the memory of the npc, works with a reward value
-        private double[] maxQValues; // Array that stores the maximum Q value for each state
-        private int[] maxQActions; // Array that the action with the max Q value
+        private Dictionary<int, double> maxQValues = new Dictionary<int, double>();
+        private Dictionary<int, int> maxQActions = new Dictionary<int, int>();
         private int numStates, numActions; //numState : number of stats possible | numActions : number of actions posible
         private double learningRate, discountFactor, explorationRate; // Parameters for the Q learning algorithm
         private float lastDistance = 9999; // Stores the last distance from the choosen destination
         private Random rnd = new Random();
         const int GRID_SIZE = 60;
-        public QLearning(int numStates, int numActions, double learningRate, double discountFactor, double explorationRate)
+        const int STATE_MODULUS = 100000;
+        private Dictionary<int, Vector3> actionDirections = new Dictionary<int, Vector3>
+        {
+            {0, new Vector3(0, 0, 1)}, // Move up
+            {1, new Vector3(0, 0, -1)}, // Move down
+            {2, new Vector3(-1, 0, 0)}, // Move left  
+            {3, new Vector3(1, 0, 0)}, // Move right
+            {4, new Vector3(1, 0f, 1)}, // Move up-right
+            {5, new Vector3(-1, 0f, 1)}, // Move up-left
+            {6, new Vector3(1, 0f, -1)}, // Move down-right
+            {7, new Vector3(-1, 0f, -1)} // Move down-left
+        };
+        private bool[,] gridObstacles;
+        public QLearning(int numStates, int numActions, double learningRate, double discountFactor, double explorationRate, int npcNum)
         {
             this.numStates = numStates;
             this.numActions = numActions;
@@ -23,8 +39,9 @@ namespace Presentation1
             this.explorationRate = explorationRate;
 
             qTable = new double[numStates, numActions];
-            maxQValues = new double[numStates];
-            maxQActions = new int[numStates];
+
+            LoadQTable(npcNum);
+            gridObstacles = LoadGrid();
         }
 
         // Class to choose the next action that the npc will do
@@ -39,17 +56,18 @@ namespace Presentation1
             else
             {
                 // Exploit: select the action with max value
-                return maxQActions[state];
+                return maxQActions.ContainsKey(state) ? maxQActions[state] : 0;
             }
         }
 
         // Update the Q value in the Q table with the reward it gets
         public void UpdateQValue(int prevState, int action, float reward, int nextState)
         {
-            // Bellman's Equation
-            qTable[prevState, action] += learningRate * (reward + discountFactor * maxQValues[nextState] - qTable[prevState, action]);
-            if (qTable[prevState, action] > maxQValues[prevState])
+            double oldValue = qTable[prevState, action];
+            if (!maxQValues.ContainsKey(prevState) || qTable[prevState, action] > maxQValues[prevState])
             {
+                double learnedValue = reward + discountFactor * (maxQValues.ContainsKey(nextState) ? maxQValues[nextState] : 0);
+                qTable[prevState, action] += learningRate * (learnedValue - oldValue);
                 maxQValues[prevState] = qTable[prevState, action];
                 maxQActions[prevState] = action;
             }
@@ -62,7 +80,7 @@ namespace Presentation1
             int z = (int)Math.Round(npc.Position.Z);
 
             // Convert the 2D position to a single index
-            int state = Math.Abs(z * 100 + x) % 100000;
+            int state = Math.Abs(z * 100 + x) % STATE_MODULUS;
 
             return state;
         }
@@ -70,46 +88,15 @@ namespace Presentation1
         // Main function that make the npc move and calls all the subfunctions
         public async void MoveAction(TransformNode npc, Vector3 destination, int npcNum, int numIterations)
         {
-            float duration = 2f;
-            float stepSize = 0.01f / duration;
-            LoadQTable(npcNum);
-
-            bool[,] gridObstacles = GridObstacle();
-
-
             for (int i = 0; i < numIterations; i++)
             {
                 int prevState = GetState(npc);
                 int action = ChooseAction(prevState);
 
-                Vector3 direction = Vector3.Zero;
+                Vector3 direction = actionDirections[action];
 
-                // Move the NPC based on the action
-                switch (action)
-                {
-                    case 0: direction = new Vector3(0, 0, 2); break; // Move up
-                    case 1: direction = new Vector3(0, 0, -2); break; // Move down
-                    case 2: direction = new Vector3(-2, 0, 0); break; // Move left  
-                    case 3: direction = new Vector3(2, 0, 0); break; // Move right
-                    case 4: direction = new Vector3(1, 0f, 1); break; // Move up-right
-                    case 5: direction = new Vector3(-1, 0f, 1); break; // Move up-left
-                    case 6: direction = new Vector3(1, 0f, -1); break; // Move down-right
-                    case 7: direction = new Vector3(-1, 0f, -1); break; // Move down-left
-                }
-
-                Vector3 desiredPosition = npc.Position + direction;
-                if (desiredPosition.X >= -GRID_SIZE / 2 && desiredPosition.X < GRID_SIZE / 2 && desiredPosition.Z >= -GRID_SIZE / 2 && desiredPosition.Z < GRID_SIZE / 2 && !gridObstacles[(int)desiredPosition.X + GRID_SIZE/2, (int)desiredPosition.Z+ GRID_SIZE/2])
-                {
-                        float t = 0f;
-                    while (t < 1f)
-                    {
-                        npc.Position = Vector3.Lerp(npc.Position, desiredPosition, t);
-                        t += stepSize;
-                        if (t > 1f)
-                            t = 1f;
-                        //await Task.Delay(1);
-                    }
-                }
+                await RotateNpc(npc, direction);
+                await MoveNpc(npc, direction, npcNum);
 
                 // Calculate the reward
                 float reward = CalculateReward(npc, destination);
@@ -118,9 +105,70 @@ namespace Presentation1
 
                 // Update the Q-value
                 UpdateQValue(prevState, action, reward, nextState);
-                SaveQTable(npcNum);
+                if (i % 100 == 0)
+                {
+                    SaveQTable(npcNum);
+                }
             }
         }
+
+        public async Task MoveNpc(TransformNode npc, Vector3 direction, int npcNum)
+        {
+            float duration = 2f;
+            float remainingTime = duration;
+            Vector3 desiredPosition = npc.Position + direction;
+
+            if (desiredPosition.X >= -GRID_SIZE / 2 && desiredPosition.X < GRID_SIZE / 2 && desiredPosition.Z >= -GRID_SIZE / 2 && desiredPosition.Z < GRID_SIZE / 2 && !gridObstacles[(int)desiredPosition.X + GRID_SIZE / 2, (int)desiredPosition.Z + GRID_SIZE / 2])
+            {
+                float t = 0f;
+                while (t < 1f)
+                {
+                    float delatTime = 0.01f;
+                    float stepSize = delatTime / duration;
+                    t += stepSize;
+                    npc.Position = Vector3.Lerp(npc.Position, desiredPosition, t);
+
+                    if (t > 1f) t = 1f;
+                    await Task.Delay((int)(delatTime * 1000));
+                    remainingTime -= delatTime;
+                }
+            }
+
+        }
+
+        public async Task RotateNpc(TransformNode npc, Vector3 direction)
+        {
+            Vector3 normalizedDirection = Vector3.Normalize(direction);
+            
+            float rotationAngleRadians = MathF.Atan2(normalizedDirection.X, normalizedDirection.Z);
+            if (rotationAngleRadians == 0)
+            {
+                return;
+            }
+
+            Vector3 rotationAxis = new Vector3(0, MathF.Sin(rotationAngleRadians / 2), 0);
+            rotationAxis = Vector3.Normalize(rotationAxis);
+            Quaternion rotation = new Quaternion(rotationAxis.X, rotationAxis.Y, rotationAxis.Z, MathF.Cos(rotationAngleRadians / 2));
+            if (Equals(npc.Rotation, rotation)) return;
+
+            float duration = 1f;
+            float remainingTime = duration;
+            float t = 0f;
+            while (t < 1f)
+            {
+                float deltaTime = 0.01f; // Adjust as needed
+                float stepSize = deltaTime / duration;
+
+                t += stepSize;
+                npc.Rotation = Quaternion.Slerp(npc.Rotation, rotation, t);
+
+                if (t > 1f) t = 1f;
+
+                await Task.Delay((int)(deltaTime * 1000)); // Convert deltaTime to milliseconds
+                remainingTime -= deltaTime;
+            }
+        }
+
 
         // Calculate the reward for the movement with the distance of the final destination
         public int CalculateReward(TransformNode npc, Vector3 destination)
@@ -177,38 +225,39 @@ namespace Presentation1
             }
         }
 
-        public bool[,] GridObstacle()
+        public bool[,] LoadGrid()
         {
-            bool[,] grid = new bool[GRID_SIZE, GRID_SIZE];
-            for (int x = 0; x < GRID_SIZE; x++)
+            string finalFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "walls.json");
+            if (File.Exists(finalFilePath))
             {
-                for (int z = 0; z < GRID_SIZE; z++)
+                var gridList = JsonConvert.DeserializeObject<List<List<bool>>>(File.ReadAllText(finalFilePath));
+                bool[,] grid = new bool[GRID_SIZE, GRID_SIZE];
+                for (int x = 0; x < GRID_SIZE; x++)
                 {
-                    grid[x, z] = false;
+                    for (int z = 0; z < GRID_SIZE; z++)
+                    {
+                        grid[x, z] = gridList[x][z];
+                    }
                 }
+                return grid;
             }
-
-            // Add walls
-
-            // Add walls
-            for (int z = -10; z <= 10; z++)
+            else
             {
-                grid[0 + GRID_SIZE / 2, z + GRID_SIZE / 2] = true; 
-                grid[1 + GRID_SIZE / 2, z + GRID_SIZE / 2] = true; 
-                grid[-29 + GRID_SIZE / 2, z + GRID_SIZE / 2] = true; 
-                grid[-30 + GRID_SIZE / 2, z + GRID_SIZE / 2] = true; 
+                return new bool[GRID_SIZE, GRID_SIZE];
             }
+        }
+    }
 
-            for (int x = -30; x < 0; x++)
-            {
-                grid[x + GRID_SIZE / 2, 10 + GRID_SIZE / 2] = true; 
-                grid[x + GRID_SIZE / 2, 11 + GRID_SIZE / 2] = true; 
-                grid[x + GRID_SIZE / 2, -10 + GRID_SIZE / 2] = true; 
-                grid[x + GRID_SIZE / 2, -11 + GRID_SIZE / 2] = true; 
-            }
+    internal record struct NewStruct(int Item1, int Item2, int Item3)
+    {
+        public static implicit operator (int, int, int)(NewStruct value)
+        {
+            return (value.Item1, value.Item2, value.Item3);
+        }
 
-            return grid;
+        public static implicit operator NewStruct((int, int, int) value)
+        {
+            return new NewStruct(value.Item1, value.Item2, value.Item3);
         }
     }
 }
-

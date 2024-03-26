@@ -28,7 +28,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\.Packages\\9.23154.3": {},
+          "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\.Packages\\9.23154.3": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -92,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -13,6 +13,7 @@ namespace CloudScripting.Sample
     using System.Numerics;
     using System.Text;
     using Presentation1.Models;
+    using Microsoft.AspNetCore.Mvc;
 
     public class AppSettings
     {
@@ -23,7 +24,6 @@ namespace CloudScripting.Sample
         public string Url { get; set; }
         public string Token { get; set; }
     }
-
     public class App : IHostedService, IAsyncDisposable
     {
         private readonly ILogger<App> _logger;
@@ -38,7 +38,7 @@ namespace CloudScripting.Sample
         private CancellationTokenSource cts5 = new CancellationTokenSource();
         private Dictionary<string, Vector3> destinationsList = new Dictionary<string, Vector3>
         {
-            {"Cafe", new Vector3(-2, 0.1f, 3)}, //Machine à café
+            {"Cafe", new Vector3(-2, 0.1f, 3)}, //Machine ï¿½ cafï¿½
             {"Innover", new Vector3(-27, 0.1f, 5)}, // Innover
             {"Loft", new Vector3()}, // Loft
         };
@@ -264,7 +264,6 @@ namespace CloudScripting.Sample
         /// <inheritdoc/>
         public Task StopAsync(CancellationToken token)
         {
-            // Custom logic could be added here for user apps
             return Task.CompletedTask;
         }
         /// <inheritdoc/>

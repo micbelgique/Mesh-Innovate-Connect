@@ -11,6 +11,8 @@ namespace CloudScripting.Sample
     using System.Threading;
     using System.Collections;
     using System.Numerics;
+    using System.Text;
+    using Presentation1.Models;
 
     public class AppSettings
     {
@@ -91,6 +93,74 @@ namespace CloudScripting.Sample
                 await UploadImageToBlobStorage(2, _appSettings);
                 btnSphere.IsActive = false;
             };
+            // Gestion of conference 
+            var layoutBtn = (TransformNode)_app.Scene.FindChildByPath("ConferenceRoom/ChoiceConference");
+            var btnIA = (TransformNode)_app.Scene.FindChildByPath("ConferenceRoom/ChoiceConference/IA/Button");
+            var sensorIA = btnIA.FindFirstChild<InteractableNode>();
+            var btnVR = (TransformNode)_app.Scene.FindChildByPath("ConferenceRoom/ChoiceConference/VR/Button");
+            var sensorVR = btnVR.FindFirstChild<InteractableNode>();
+            var btnChatBox = (TransformNode)_app.Scene.FindChildByPath("ConferenceRoom/ChoiceConference/ChatBox/Button");
+            var sensorChatBox = btnChatBox.FindFirstChild<InteractableNode>();
+            var site = (TransformNode)_app.Scene.FindChildByPath("ConferenceRoom/Site");
+
+            sensorIA.Selected += async (sender, args) =>
+            {
+                layoutBtn.IsActive = false;
+                site.IsActive = true;
+                bool reponse = await AskNewConference("IA");
+                if (true)
+                {
+                    Task.Delay(5000);
+                    site.IsActive = true;
+                    Task.Delay(300000);
+                    site.IsActive = false;
+                    layoutBtn.IsActive = true;
+                }
+                else
+                {
+                    layoutBtn.IsActive = true;
+                }
+            };
+
+
+            sensorVR.Selected += async (sender, args) =>
+            {
+                layoutBtn.IsActive = false;
+                site.IsActive = true;
+                bool reponse = await AskNewConference("Virtual Reality");
+                if (true)
+                {
+                    Task.Delay(5000);
+                    site.IsActive = true;
+                    Task.Delay(300000);
+                    site.IsActive = false;
+                    layoutBtn.IsActive = true;
+                }
+                else
+                {
+                    layoutBtn.IsActive = true;
+                }
+            };
+
+            sensorChatBox.Selected += async (sender, args) =>
+            {
+                layoutBtn.IsActive = false;
+                site.IsActive = true;
+                bool reponse = await AskNewConference("ChatBox IA");
+                if (true)
+                {
+                    Task.Delay(5000);
+                    site.IsActive = true;
+                    Task.Delay(300000);
+                    site.IsActive = false;
+                    layoutBtn.IsActive = true;
+                }
+                else
+                {
+                    layoutBtn.IsActive = true;
+                }
+            };
+
 
             var btnSimulationCafe = (TransformNode)_app.Scene.FindChildByPath("Simulation/ButtonCafe");
             var sensorCafe = btnSimulationCafe.FindFirstChild<InteractableNode>();
@@ -106,7 +176,29 @@ namespace CloudScripting.Sample
             };
         }
 
-        public async Task StartSimulation(string simulationAction) //0 to go to the coffee 
+        public static async Task<bool> AskNewConference(string prompt)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7177/Conference/CreateConference");
+                    request.Headers.Add("Content", "application/json");
+                    var jsonContent = JsonConvert.SerializeObject(new ConferenceDataModel { Prompt = prompt });
+                    request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    var response = await client.SendAsync(request);
+                    response.EnsureSuccessStatusCode();
+                    return response.IsSuccessStatusCode;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+
+            public async Task StartSimulation(string simulationAction) //0 to go to the coffee 
         {
             Vector3 destination = destinationsList[simulationAction];
             var npc1 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");

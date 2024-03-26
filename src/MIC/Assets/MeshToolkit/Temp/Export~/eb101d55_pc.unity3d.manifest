@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3986233255
+CRC: 2103074366
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6c11d9bf3b58e193945cb3678602b823
+    Hash: b8b8904fe1acd49fdf55246ddf96f3d3
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4ff9b84c15d31d41a2744cfc5991996c
+    Hash: 2a6efc55359d50888728b30fa7e08c7e
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -49,8 +49,6 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 108
   Script: {instanceID: 0}
-- Class: 111
-  Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: bfda56da833e2384a9677cd3c976a436, type: 3}
 - Class: 114
@@ -77,6 +75,8 @@ ClassTypes:
   Script: {fileID: -264777327, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: 990289100, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
+- Class: 114
+  Script: {fileID: 1130219089, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: -223059493, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
@@ -126,4 +126,5 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/MeshToolkit/Temp/AssetCopies/eb101d55/0/Presentation1.unity
-Dependencies: []
+Dependencies:
+- C:/Users/MissonOscar/Desktop/Mesh-Innovate-Connect/src/MIC/Assets/MeshToolkit/Temp/Export~/meshfonts_pc.unity3d

@@ -29,6 +29,17 @@ namespace CloudScripting.Sample
         private readonly AppSettings _appSettings;
         private readonly PersonFlow _personFlow;
         private readonly List<QLearning> _qLearnings;
+        private CancellationTokenSource cts1 = new CancellationTokenSource();
+        private CancellationTokenSource cts2 = new CancellationTokenSource();
+        private CancellationTokenSource cts3 = new CancellationTokenSource();
+        private CancellationTokenSource cts4 = new CancellationTokenSource();
+        private CancellationTokenSource cts5 = new CancellationTokenSource();
+        private Dictionary<string, Vector3> destinationsList = new Dictionary<string, Vector3>
+        {
+            {"Cafe", new Vector3(-2, 0.1f, 3)}, //Machine à café
+            {"Innover", new Vector3(-27, 0.1f, 5)}, // Innover
+            {"Loft", new Vector3()}, // Loft
+        };
         public App(ICloudApplication app, ILogger<App> logger)
         {
             _app = app;
@@ -39,7 +50,7 @@ namespace CloudScripting.Sample
             for (int i = 0; i < 5; i++)
             {
                 int numStates = 1800;
-                _qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.9, 0.6, 0));
+                _qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.7, 1, 0));
             }
         }
         private AppSettings? LoadSettings()
@@ -80,21 +91,51 @@ namespace CloudScripting.Sample
                 await UploadImageToBlobStorage(2, _appSettings);
                 btnSphere.IsActive = false;
             };
-            Vector3 destination = new Vector3(-25, 0, 1);
-            var wall = (TransformNode)_app.Scene.FindChildByPath("QLearning/Wall");
+
+            var btnSimulationCafe = (TransformNode)_app.Scene.FindChildByPath("Simulation/ButtonCafe");
+            var sensorCafe = btnSimulationCafe.FindFirstChild<InteractableNode>();
+            var btnSImulationInnover = (TransformNode)_app.Scene.FindChildByPath("Simulation/ButtonInnover");
+            var sensorInnover = btnSImulationInnover.FindFirstChild<InteractableNode>();
+            sensorCafe.Selected += async (sender, args) =>
+            {
+                await StartSimulation("Cafe");
+            };
+            sensorInnover.Selected += async (sender, args) =>
+            {
+                await StartSimulation("Innover");
+            };
+        }
+
+        public async Task StartSimulation(string simulationAction) //0 to go to the coffee 
+        {
+            Vector3 destination = destinationsList[simulationAction];
             var npc1 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");
             var npc2 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character1");
             var npc3 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character2");
             var npc4 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character3");
             var npc5 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character4");
-            _qLearnings[0].MoveAction(npc1, destination, 0,  10000);
-            //_qLearnings[1].MoveAction(npc2, destination, 1, 100);
-            //_qLearnings[2].MoveAction(npc3, destination, 10000);
-            //_qLearnings[3].MoveAction(npc4, destination, 10000);
-            //_qLearnings[4].MoveAction(npc5, destination, 10000);
 
-            //var move = 5;
-            //_personFlow.Boucle(npc, move);
+            cts1.Cancel();
+            cts2.Cancel();
+            cts3.Cancel();
+            cts4.Cancel();
+            cts5.Cancel();
+
+            cts1 = new CancellationTokenSource();
+            cts2 = new CancellationTokenSource();
+            cts3 = new CancellationTokenSource();
+            cts4 = new CancellationTokenSource();
+            cts5 = new CancellationTokenSource();
+
+            _qLearnings[0].MoveAction(npc1, destination, simulationAction, 0, 10000, cts1.Token);
+            await Task.Delay(50);
+            _qLearnings[1].MoveAction(npc2, destination, simulationAction, 1, 10000, cts2.Token);
+            await Task.Delay(50);
+            _qLearnings[2].MoveAction(npc3, destination, simulationAction, 2,  10000, cts3.Token);
+            await Task.Delay(50);
+            _qLearnings[3].MoveAction(npc4, destination, simulationAction, 3, 10000, cts4.Token);
+            await Task.Delay(50);
+            _qLearnings[4].MoveAction(npc5, destination, simulationAction, 4, 10000, cts5.Token);
         }
 
         public async Task<string> GetImage(TransformNode node, string imageUrl)

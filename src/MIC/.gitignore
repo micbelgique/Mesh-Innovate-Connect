@@ -25,9 +25,15 @@
 
 # Ignore tokens
 /[Aa]ssets/.MeshCloudScripting/Presentation1/mesh.cloudscripting.manifest.json
+/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.json
+/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.Development.json
+/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.Production.json
+/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.UnityLocalDev.json
+
 
 # Visual Studio cache directory
 .vs/
+.vsconfig
 
 # Gradle cache directory
 .gradle/

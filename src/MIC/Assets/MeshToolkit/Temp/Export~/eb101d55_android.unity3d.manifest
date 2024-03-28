@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2495969511
+CRC: 2476103935
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f1a8fc642623f8c16c8916040c3b72b7
+    Hash: 0593b9abcc294b81546b87fdea7ef3cc
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 82e7d8fe866e771ce2b81b5a9c6c20b6
+    Hash: 2a6efc55359d50888728b30fa7e08c7e
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -37,9 +37,9 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 82
   Script: {instanceID: 0}
-- Class: 84
-  Script: {instanceID: 0}
 - Class: 89
+  Script: {instanceID: 0}
+- Class: 90
   Script: {instanceID: 0}
 - Class: 91
   Script: {instanceID: 0}
@@ -66,7 +66,7 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
 - Class: 114
-  Script: {fileID: -593072866, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
+  Script: {fileID: -2081783618, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: 5397862, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
@@ -76,19 +76,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 990289100, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
-  Script: {fileID: 1815584802, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
-- Class: 114
   Script: {fileID: 1130219089, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: -223059493, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
-  Script: {fileID: -1612189990, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
-- Class: 114
   Script: {fileID: 1932828386, guid: 23f4952d963b87044852157c8bad25cc, type: 3}
-- Class: 114
-  Script: {fileID: -123875206, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
-- Class: 114
-  Script: {fileID: -985415299, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
 - Class: 114
   Script: {fileID: 1258557776, guid: 4215dfc0be7da4a47a6346b7585b79fb, type: 3}
 - Class: 114
@@ -121,6 +113,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 136
   Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
 - Class: 157
   Script: {instanceID: 0}
 - Class: 196
@@ -129,11 +123,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 320
   Script: {instanceID: 0}
-- Class: 328
-  Script: {instanceID: 0}
-- Class: 329
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/MeshToolkit/Temp/AssetCopies/eb101d55/0/Presentation1.unity
-Dependencies: []
+Dependencies:
+- C:/Users/MissonOscar/Desktop/Mesh-Innovate-Connect/src/MIC/Assets/MeshToolkit/Temp/Export~/meshfonts_android.unity3d

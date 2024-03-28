@@ -1,0 +1,15 @@
+body {
+    background-color: rgb(1, 13, 31);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
+}
+
+.div-parent > div {
+    padding: 5px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

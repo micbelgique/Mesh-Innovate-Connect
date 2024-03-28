@@ -19,5 +19,5 @@ MonoBehaviour:
   requireGroundCollisionLayer: 0
   useLegacyUnityBuildPipeline: 1
   useStrictMode: 1
-  warnBeforeUpload: 1
+  warnBeforeUpload: 0
   destroyUnsupportedComponentsBeforeUpload: 0

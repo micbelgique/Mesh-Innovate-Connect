@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2476103935
+CRC: 3524009109
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0593b9abcc294b81546b87fdea7ef3cc
+    Hash: ecf051ceae5e2ef128b59fc47aecc678
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2a6efc55359d50888728b30fa7e08c7e
+    Hash: f3860378ec83fc1e2b197245f322b0f7
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -36,6 +36,8 @@ ClassTypes:
 - Class: 74
   Script: {instanceID: 0}
 - Class: 82
+  Script: {instanceID: 0}
+- Class: 84
   Script: {instanceID: 0}
 - Class: 89
   Script: {instanceID: 0}
@@ -68,6 +70,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -2081783618, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
+  Script: {fileID: -593072866, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
+- Class: 114
   Script: {fileID: 5397862, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: 194884464, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
@@ -79,6 +83,8 @@ ClassTypes:
   Script: {fileID: 1130219089, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: -223059493, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
+- Class: 114
+  Script: {fileID: -1612189990, guid: 02703c3431227cd478b8fb81bd8584af, type: 3}
 - Class: 114
   Script: {fileID: 1932828386, guid: 23f4952d963b87044852157c8bad25cc, type: 3}
 - Class: 114
@@ -123,8 +129,12 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 320
   Script: {instanceID: 0}
+- Class: 328
+  Script: {instanceID: 0}
+- Class: 329
+  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/MeshToolkit/Temp/AssetCopies/eb101d55/0/Presentation1.unity
+- Assets/MeshToolkit/Temp/AssetCopies/eb101d55/0/MIC-Maquette.unity
 Dependencies:
-- C:/Users/MissonOscar/Desktop/Mesh-Innovate-Connect/src/MIC/Assets/MeshToolkit/Temp/Export~/meshfonts_android.unity3d
+- C:/Users/Thoma/Desktop/Mesh-Innovate-Connect/src/MIC/Assets/MeshToolkit/Temp/Export~/meshfonts_android.unity3d

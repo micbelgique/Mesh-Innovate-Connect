@@ -24,18 +24,16 @@ const TextToSpeech: React.FC<ConferenceContext> = ({ content }) => {
               console.error(`Speech synthesis canceled: ${result.errorDetails} \nDid you set the speech resource key and region values?`);
             }
             synthesizer.close();
-            //synthesizer = null;
           },
           function (err: any) {
             console.trace(`Error: ${err}`);
             synthesizer.close();
-            //synthesizer = null;
           }
         );
       };
   
       useEffect(() => {
-        setTimeout(startAudio, 3000);
+        startAudio();
       }, []);
 
       

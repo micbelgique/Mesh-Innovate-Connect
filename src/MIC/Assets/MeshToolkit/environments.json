@@ -6,7 +6,7 @@
       "isEnabled": true,
       "uploadItems": [
         {
-          "prefabFilepath": "Assets/Scenes/Presentation1.unity",
+          "prefabFilepath": "Assets/Scenes/MIC-Maquette.unity",
           "forAndroid": true,
           "forWin": true
         }

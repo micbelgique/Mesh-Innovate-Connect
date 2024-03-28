@@ -11,17 +11,17 @@ namespace MeshApp.Animations
     using Microsoft.Mesh.CloudScripting.Declarations;
 
     [UserCreatable(false)]
-    public class TestAnimator : AnimationNode
+    public class SimuSandBoxAnimatorAnimator : AnimationNode
     {
         private readonly float[] _baseLayerSpeeds = { 1F, };
 
-        protected TestAnimator(in Guid ahandle, bool transfer)
+        protected SimuSandBoxAnimatorAnimator(in Guid ahandle, bool transfer)
         : base(ahandle, transfer)
         { }
 
         public enum BaseLayerState
         {
-            NewState,
+            ActiveSimuSandBox,
         }
 
         [Replication(ReplicationKind.Full)]
@@ -46,14 +46,14 @@ namespace MeshApp.Animations
             set => GetPropertyAccessor(nameof(SystemTimeOfBaseLayerUpdated)).SetValue(value);
         }
 
-        internal static TestAnimator GetOrCreateInstance(in Guid cookie, bool transfer)
+        internal static SimuSandBoxAnimatorAnimator GetOrCreateInstance(in Guid cookie, bool transfer)
         {
             var result = GetOrCreateCloudObject(
                 cookie,
                 transfer,
-                (handle, t) => new TestAnimator(handle, transfer: t));
+                (handle, t) => new SimuSandBoxAnimatorAnimator(handle, transfer: t));
 
-            return result as TestAnimator;
+            return result as SimuSandBoxAnimatorAnimator;
         }
     }
 }

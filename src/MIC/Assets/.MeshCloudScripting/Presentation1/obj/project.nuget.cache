@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lK0s2XuhdgErmMYG4iqEmmNBHkIZm5MBa2ilslPn/6UdjH4EzZdvRGtXFhOTTAku/H/4kJCRkU3PFDXDO/PTsA==",
+  "dgSpecHash": "G+RiGhKXoqUDjFrGgmWyA+UFIkccCp1MwvEYRA4ls5IKQuk8AH8tT+FrfCqnfvnIWwtvsVjEseBp4IUOtlyYGA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\Presentation1\\Presentation1.csproj",
+  "projectFilePath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\Presentation1\\Presentation1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thoma\\.nuget\\packages\\cliwrap\\3.4.1\\cliwrap.3.4.1.nupkg.sha512",
     "C:\\Users\\Thoma\\.nuget\\packages\\commandlineparser\\2.8.0\\commandlineparser.2.8.0.nupkg.sha512",

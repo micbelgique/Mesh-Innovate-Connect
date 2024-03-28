@@ -11,17 +11,17 @@ namespace MeshApp.Animations
     using Microsoft.Mesh.CloudScripting.Declarations;
 
     [UserCreatable(false)]
-    public class TimelinesAnimator : AnimationNode
+    public class SimuWorkAnimatorAnimator : AnimationNode
     {
         private readonly float[] _baseLayerSpeeds = { 1F, };
 
-        protected TimelinesAnimator(in Guid ahandle, bool transfer)
+        protected SimuWorkAnimatorAnimator(in Guid ahandle, bool transfer)
         : base(ahandle, transfer)
         { }
 
         public enum BaseLayerState
         {
-            TpToEventZone,
+            ActiveSimuWork,
         }
 
         [Replication(ReplicationKind.Full)]
@@ -46,14 +46,14 @@ namespace MeshApp.Animations
             set => GetPropertyAccessor(nameof(SystemTimeOfBaseLayerUpdated)).SetValue(value);
         }
 
-        internal static TimelinesAnimator GetOrCreateInstance(in Guid cookie, bool transfer)
+        internal static SimuWorkAnimatorAnimator GetOrCreateInstance(in Guid cookie, bool transfer)
         {
             var result = GetOrCreateCloudObject(
                 cookie,
                 transfer,
-                (handle, t) => new TimelinesAnimator(handle, transfer: t));
+                (handle, t) => new SimuWorkAnimatorAnimator(handle, transfer: t));
 
-            return result as TimelinesAnimator;
+            return result as SimuWorkAnimatorAnimator;
         }
     }
 }

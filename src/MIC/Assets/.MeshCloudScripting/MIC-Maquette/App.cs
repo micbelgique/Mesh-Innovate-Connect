@@ -350,9 +350,26 @@
             sensorEnter.Selected += async (sender, args) =>
             {
                 keys.IsActive = false;
-                await AskNewConference(valueText.Text);
-                Task.Delay(3000);
-                site.IsActive = true;
+                try 
+                {
+                    await AskNewConference(valueText.Text);
+                    valueText.Text = "Votre conférence a été généré et va démarrer";
+                    Task.Delay(3000);
+                    site.IsActive = true;
+                    // à adapter quand on pourra choisir la durée de la réunion
+                    Task.Delay(300000);
+                    site.IsActive = false;
+                    keys.IsActive = true;
+                    valueText.Text = "";
+                } 
+                catch(Exception e) 
+                {
+                    valueText.Text = "Votre conférence n'a pas été généré";
+                    keys.IsActive = true;
+                    Task.Delay(3000);
+                    valueText.Text = "";
+                }
+                
             };
        
 

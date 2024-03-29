@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj": {}
+    "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\MIC-Maquette.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj": {
+    "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\MIC-Maquette.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
+        "projectUniqueName": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\MIC-Maquette.csproj",
         "projectName": "MIC-Maquette",
-        "projectPath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
+        "projectPath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\MIC-Maquette.csproj",
         "packagesPath": "C:\\Users\\Thoma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\obj\\",
+        "outputPath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\NuGet.Config",
+          "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\NuGet.Config",
           "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\NuGet.Config",
           "C:\\Users\\Thoma\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3257459277
+CRC: 1726574434
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cd6592db00173ab941bf68afe0d1fd19
+    Hash: d97878d23dae4771852b7d7a47876623
   TypeTreeHash:
     serializedVersion: 2
     Hash: 2172eb9bcb39b2bdaceec7c9e1d524e1
@@ -29,11 +29,17 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.KerningTable
 - AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_Character
+- AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_FontFeatureTable
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_FontWeightPair
 - AssemblyName: UnityEngine.TextCoreFontEngineModule
   ClassName: UnityEngine.TextCore.FaceInfo
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.Glyph
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.GlyphMetrics
 - AssemblyName: UnityEngine.TextCoreFontEngineModule
   ClassName: UnityEngine.TextCore.GlyphRect
 Assets:

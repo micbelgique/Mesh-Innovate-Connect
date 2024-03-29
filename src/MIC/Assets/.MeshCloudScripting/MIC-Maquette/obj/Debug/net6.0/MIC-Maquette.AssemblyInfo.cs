@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MIC-Maquette")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de7ae8efa94485099d2d7235478206f01b80ad6c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+593ea507068326d7c3a2d54302b25c8bde18816b")]
 [assembly: System.Reflection.AssemblyProductAttribute("MIC-Maquette")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MIC-Maquette")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

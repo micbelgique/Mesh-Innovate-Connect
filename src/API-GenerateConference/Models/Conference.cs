@@ -3,11 +3,11 @@
     public class Conference
     {
         public string ConferenceTalk;
-        public List<string> ImagesUrl;
+        public List<string> ImagesUrls;
 
         public Conference()
         {
-            ImagesUrl = new List<string>();
+            ImagesUrls = new List<string>();
         }
 
 

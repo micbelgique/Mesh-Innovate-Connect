@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Carousel from './Carousel';
-import TextToSpeech from './TextToSpeech';
+import Avatar from './Avatar';
 import "../css/Conference.css"
 
 
@@ -8,19 +7,18 @@ import "../css/Conference.css"
 
 const Conference: React.FC = () => {
 
-    const [conferenceText, setConferenceText] = useState<string>('');
+    const [conferenceText, setConferenceText] = useState<string>("");
     const [imagesUrls, setImagesUrls] = useState<string[]>([]);
     useEffect(() => {
       const fetchConference = async () => {
           try {
-            const reponse = fetch('https://localhost:7177/Conference/GetConference');
+                const reponse = await fetch('https://api-generateconference.azurewebsites.net//Conference/GetConference');
 ;               const data = await (await reponse).json();
-                
                 if (data.hasOwnProperty('ConferenceTalk')) {
                     setConferenceText(data.ConferenceTalk);
                 }
-                if (data.hasOwnProperty('ImagesUrl')) {
-                    setImagesUrls(data.ImagesUrl);
+                if (data.hasOwnProperty('ImagesUrls')) {
+                    setImagesUrls(data.ImagesUrls);
                 }
           } catch (error) {
               console.error('Error fetching conference data:', error);
@@ -31,9 +29,8 @@ const Conference: React.FC = () => {
   }, []);
 
     return (
-        <div className="div-parent">
-            <Carousel imagesUrls={imagesUrls} />
-            <TextToSpeech content={conferenceText} />   
+        <div>
+            <Avatar conferenceText={conferenceText} images={imagesUrls} />
         </div>
     );
 };

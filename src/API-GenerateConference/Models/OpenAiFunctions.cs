@@ -5,31 +5,31 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace API_GenerateConference.Models
 {
     public class OpenAiFunctions
     {
 
-        public  async Task<ActionResult<string>> GenerateText(string context)
+        public  async Task<ActionResult<string>> GenerateTextIntro(string context)
         {
             OpenAIClient client = new(new Uri(AppSettings.Instance.IASettings.azure_endpoint), new AzureKeyCredential(AppSettings.Instance.IASettings.azure_Key));
             StringBuilder generatedText = new StringBuilder("");
-            var prompt = "You are tasked with delivering a french presentation about "
-                + context +
-                " you'll need a well-defined structure with 4 paragraphs. " +
-                "first paragraph Introduce the context, " +
-                "second paragraph : talk about its history, " +
-                "third paragraph : explain what can be done with the context today, " +
-                "fourth paragraph : then draw up a conclusion that covers all the points of the conference.";
+            var prompt = "En tant que présentateur professionnel français , Tu es sur le point de prendre la parole lors d'une conférence devant des clients . " +
+                "Notre sujet de discussion est " + context +
+                " Dans cette introduction, votre objectif est de captiver immédiatement l'attention de l'audience et de leur fournir une perspective claire sur le sujet à venir. " +
+                "Tu dois établir une connexion pertinente avec leur domaine d'intérêt, en mettant en évidence les points clés et les avantages qu'ils peuvent tirer de cette présentation. " +
+                "Assurez-vous que l'introduction est à la fois professionnelle et engageante, de manière à ce que les clients comprennent immédiatement l'importance et la pertinence du sujet pour leur activité. ";
+
 
             try
             {
                 var chatCompletionsOptions = new ChatCompletionsOptions()
                 {
                     DeploymentName = "gpt-35-turbo",
-                    Temperature = 0.4f,
-                    Messages = { new ChatRequestSystemMessage(prompt), }
+                    Temperature = 0.1f,
+                    Messages = { new ChatRequestSystemMessage(prompt),},
                 };
 
                 await foreach (StreamingChatCompletionsUpdate chatUpdate in client.GetChatCompletionsStreaming(chatCompletionsOptions))
@@ -43,16 +43,137 @@ namespace API_GenerateConference.Models
                         generatedText.Append(chatUpdate.ContentUpdate);
                     }
                 }
-                return generatedText.ToString();
+                string texte = SupprimerPrefixe(generatedText.ToString());
+                return texte;
             }
-            catch
+            catch(Exception ex) 
             {
-                return null;
+                return ex.ToString();
             }
+            
         }
 
+        public async Task<ActionResult<string>> GenerateTextHistory(string context)
+        {
+            OpenAIClient client = new(new Uri(AppSettings.Instance.IASettings.azure_endpoint), new AzureKeyCredential(AppSettings.Instance.IASettings.azure_Key));
+            StringBuilder generatedText = new StringBuilder("");
+            var prompt = 
+                "Tu vas recevoir un texte qui comporte déjà l'introduction" +
+                "ta tâche consiste à générer seulement la partie sur l'histoire du sujet " +
+                "l'objectif est de présenter cette section de manière à ce que les clients comprennent pleinement l'importance historique du sujet, ainsi que sa pertinence continue dans le paysage technologique actuel. " +
+                "Assurez-vous d'offrir une analyse approfondie et pertinente, en captivant l'attention de votre audience dès les premiers instants de votre présentation." + 
+                "voici le texte : " + context;
 
-        public  async Task<ActionResult<string>> GenerateUrlImage(string context, int whichParagraph)
+
+            try
+            {
+                var chatCompletionsOptions = new ChatCompletionsOptions()
+                {
+                    DeploymentName = "gpt-35-turbo",
+                    Temperature = 0.1f,
+                    Messages = { new ChatRequestSystemMessage(prompt), },
+                };
+
+                await foreach (StreamingChatCompletionsUpdate chatUpdate in client.GetChatCompletionsStreaming(chatCompletionsOptions))
+                {
+                    if (chatUpdate.Role.HasValue)
+                    {
+                        generatedText.Append($"{chatUpdate.Role.Value.ToString().ToUpperInvariant()}: ");
+                    }
+                    if (!string.IsNullOrEmpty(chatUpdate.ContentUpdate))
+                    {
+                        generatedText.Append(chatUpdate.ContentUpdate);
+                    }
+                }
+                string texte = SupprimerPrefixe(generatedText.ToString());
+                return texte;
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+        }
+
+        public async Task<ActionResult<string>> GenerateTextEvolution(string context)
+        {
+            OpenAIClient client = new(new Uri(AppSettings.Instance.IASettings.azure_endpoint), new AzureKeyCredential(AppSettings.Instance.IASettings.azure_Key));
+            StringBuilder generatedText = new StringBuilder("");
+            var prompt =
+                "tu vas recevoir une introduction ainsi que l'histoire d'un sujet, je veux que tu génére seulement la partie sur l'évolution de celui-ci " +
+                "Votre objectif est de fournir une analyse détaillée et pertinente de l'état actuel du sujet, en offrant à l'audience une perspective claire sur les tendances émergentes, les innovations récentes et les défis contemporains rencontrés dans ce domaine. " +
+                "voici l'introduction et l'histoire du sujet " + context;
+
+            try
+            {
+                var chatCompletionsOptions = new ChatCompletionsOptions()
+                {
+                    DeploymentName = "gpt-35-turbo",
+                    Temperature = 0.1f,
+                    Messages = { new ChatRequestSystemMessage(prompt), },
+                };
+
+                await foreach (StreamingChatCompletionsUpdate chatUpdate in client.GetChatCompletionsStreaming(chatCompletionsOptions))
+                {
+                    if (chatUpdate.Role.HasValue)
+                    {
+                        generatedText.Append($"{chatUpdate.Role.Value.ToString().ToUpperInvariant()}: ");
+                    }
+                    if (!string.IsNullOrEmpty(chatUpdate.ContentUpdate))
+                    {
+                        generatedText.Append(chatUpdate.ContentUpdate);
+                    }
+                }
+                string texte = SupprimerPrefixe(generatedText.ToString());
+                return texte;
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+        }
+
+        public async Task<ActionResult<string>> GenerateTextConclusion(string context)
+        {
+            OpenAIClient client = new(new Uri(AppSettings.Instance.IASettings.azure_endpoint), new AzureKeyCredential(AppSettings.Instance.IASettings.azure_Key));
+            StringBuilder generatedText = new StringBuilder("");
+            var prompt =
+                "Tu analysera un texte  qui comporte une introduction , l'histoire de celui-ci ainsi que son évolution " +
+                "Je veux que tu me génère une conclusion qui reprend ce que la conférence à présenter ainsi qu'un exemple d'un futur possible pour le sujet" + 
+                "voici le texte en question : " + context;
+
+            try
+            {
+                var chatCompletionsOptions = new ChatCompletionsOptions()
+                {
+                    DeploymentName = "gpt-35-turbo",
+                    Temperature = 0.1f,
+                    Messages = { new ChatRequestSystemMessage(prompt), },
+                };
+
+                await foreach (StreamingChatCompletionsUpdate chatUpdate in client.GetChatCompletionsStreaming(chatCompletionsOptions))
+                {
+                    if (chatUpdate.Role.HasValue)
+                    {
+                        generatedText.Append($"{chatUpdate.Role.Value.ToString().ToUpperInvariant()}: ");
+                    }
+                    if (!string.IsNullOrEmpty(chatUpdate.ContentUpdate))
+                    {
+                        generatedText.Append(chatUpdate.ContentUpdate);
+                    }
+                }
+                string texte = SupprimerPrefixe(generatedText.ToString());
+                return texte;
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+        }
+
+        public  async Task<ActionResult<string>> GenerateUrlImage(string context)
         {
             try
             {
@@ -62,8 +183,8 @@ namespace API_GenerateConference.Models
 
                 var jsonContent = new JsonDalle
                 {
-                    prompt = $" in the following context {context} generates a photo in relation to the {whichParagraph} paragraph ",
-                    size = "1024x1024",
+                    prompt = "Par  rapport à ce context : " + context + "tu vas générer une imagine profesionnelle et réaliste qui y correspond",
+                    size = "1792x1024",
                     n = 1,
                     quality = "hd",
                     style = "vivid"
@@ -88,5 +209,23 @@ namespace API_GenerateConference.Models
             }
         }
 
+
+
+        public string SupprimerPrefixe(string texte)
+        {
+            const string prefixe = "ASSISTANT: ";
+            if (texte.StartsWith(prefixe))
+            {
+                return texte.Substring(prefixe.Length);
+            }
+            else
+            {
+                return texte;
+            }
+        }
     }
+
 }
+
+
+

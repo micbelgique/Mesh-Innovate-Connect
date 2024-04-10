@@ -35,40 +35,57 @@ namespace API_GenerateConference.Controllers
             Uri blobUri = new Uri(AppSettings.Instance.IASettings.blob_conference);
             var blobServiceClient = new BlobServiceClient(blobUri);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("");
+            Conference newConference = new Conference();
+            List<string> paragraphConference = new List<string>();
             try
             {
-                var conferenceText = await _openAiFunctions.GenerateText(args.Prompt);
-                Conference newConference = new Conference();
-                if (conferenceText.Value != null)
+                var conferenceText = await _openAiFunctions.GenerateTextIntro(args.Prompt);
+                if(conferenceText.Value != null)
                 {
-                    try
+                    // Ajout de l'introduction
+                    paragraphConference.Add(conferenceText.Value);
+                    // Création de  l'histoire du sujet
+                    conferenceText = await _openAiFunctions.GenerateTextHistory(paragraphConference.Last());
+                    if(conferenceText.Value != null)
                     {
-                        newConference.ConferenceTalk = conferenceText.Value;
-                        for (int iParagraph = 1; iParagraph <= 4; iParagraph++)
+                        // Ajout de l'histoire du sujet
+                        paragraphConference.Add(conferenceText.Value);
+                        var image = await _openAiFunctions.GenerateUrlImage(conferenceText.Value);
+                        newConference.ImagesUrls.Add(image.Value);
+                        // Création de l'évolution du sujet
+                        conferenceText = await _openAiFunctions.GenerateTextEvolution(paragraphConference.Last());
+                        if(conferenceText.Value != null) 
                         {
-                            var imageUrlResult = await _openAiFunctions.GenerateUrlImage(newConference.ConferenceTalk, iParagraph);
-                            if (imageUrlResult != null && imageUrlResult.Value != null)
+                            // Ajout de l'évolution du sujet 
+                            paragraphConference.Add(conferenceText.Value);
+                            image = await _openAiFunctions.GenerateUrlImage(conferenceText.Value);
+                            newConference.ImagesUrls.Add(image.Value);
+                            // Création de la conclusion
+                            conferenceText = await _openAiFunctions.GenerateTextConclusion(paragraphConference.Last());
+                            if(conferenceText != null)
                             {
-                                newConference.ImagesUrl.Add(imageUrlResult.Value);
+                                // Ajout de la conclusion
+                                paragraphConference.Add(conferenceText.Value);
+                                foreach (string paragraph in paragraphConference)
+                                {
+                                    newConference.ConferenceTalk += paragraph;
+                                }
+                                using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(newConference))))
+                                {
+                                    var blobName = "Conference";
+                                    if (await blobContainerClient.GetBlobClient(blobName).ExistsAsync())
+                                    {
+                                        await blobContainerClient.DeleteBlobIfExistsAsync(blobName);
+                                    }
+                                    await blobContainerClient.UploadBlobAsync(blobName, ms);
+                                }
+                                return Ok();
                             }
                         }
-                        using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(newConference))))
-                        {
-                            var blobName = "Conference";
-                            if (await blobContainerClient.GetBlobClient(blobName).ExistsAsync())
-                            {
-                                await blobContainerClient.DeleteBlobIfExistsAsync(blobName);
-                            }
-                            await blobContainerClient.UploadBlobAsync(blobName,ms);
-                        }
-                        return Ok();
                     }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.Message);
-                    }
+                    
                 }
-                else { return NotFound(); }
+                return NotFound();
             }
             catch (Exception ex)
             {

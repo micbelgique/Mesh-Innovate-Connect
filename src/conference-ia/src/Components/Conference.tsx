@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Avatar from './Avatar';
+import TextToSpeech from './TextToSpeech';
+import Carousel from './Carousel';
+import DescriptionSpot from './DescriptionSpot';
 import "../css/Conference.css"
 
 
@@ -28,11 +30,19 @@ const Conference: React.FC = () => {
       fetchConference();
   }, []);
 
-    return (
-        <div>
-            <Avatar conferenceText={conferenceText} images={imagesUrls} />
-        </div>
-    );
+  return (
+    <div className="container conferenceContainer flex-row">
+      <div className="container data d-flex justify-content-between">
+  
+        <Carousel imagesUrls={imagesUrls} />
+  
+        <TextToSpeech content={conferenceText} />
+
+        <DescriptionSpot description={conferenceText} />
+        
+      </div>
+    </div>
+  );
 };
 
 export default Conference;

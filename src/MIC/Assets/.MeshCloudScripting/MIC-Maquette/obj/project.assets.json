@@ -4344,9 +4344,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\Presentation1.csproj",
-      "projectName": "Presentation1",
-      "projectPath": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\Presentation1.csproj",
+      "projectUniqueName": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
+      "projectName": "MIC-Maquette",
+      "projectPath": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
       "packagesPath": "C:\\Users\\MissonOscar\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\obj\\",
       "projectStyle": "PackageReference",

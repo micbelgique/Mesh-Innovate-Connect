@@ -1,4 +1,4 @@
-C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\Presentation1.exe
+C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\MIC-Maquette.exe
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\nuget.config
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\appsettings.Development.json
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\appsettings.json
@@ -6,10 +6,10 @@ C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScri
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\appsettings.UnityLocalDev.json
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\mesh.cloudscripting.manifest.json
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\scene.map
-C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\Presentation1.dll
-C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\Presentation1.deps.json
-C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\Presentation1.runtimeconfig.json
-C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\Presentation1.pdb
+C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\MIC-Maquette.dll
+C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\MIC-Maquette.deps.json
+C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\MIC-Maquette.runtimeconfig.json
+C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\MIC-Maquette.pdb
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\CliWrap.dll
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\CommandLine.dll
 C:\Users\MissonOscar\Desktop\Mesh-Innovate-Connect\src\MIC\Assets\.MeshCloudScripting\mic-maquette\bin\publish\Microsoft.ApplicationInsights.dll

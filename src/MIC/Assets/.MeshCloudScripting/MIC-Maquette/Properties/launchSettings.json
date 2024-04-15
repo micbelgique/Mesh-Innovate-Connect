@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "Presentation1": {
+    "MIC-Maquette": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:52238;http://localhost:52239"
+      "applicationUrl": "https://localhost:65127;http://localhost:65128"
     }
   }
 }

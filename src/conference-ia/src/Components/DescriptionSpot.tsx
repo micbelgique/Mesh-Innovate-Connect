@@ -19,7 +19,7 @@ const DescriptionSpot: React.FC<DescriptionSpotProps> = ({ description }) => {
       } else {
         clearInterval(intervalId);
       }
-    }, 700);
+    }, 2000);
 
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [description]);

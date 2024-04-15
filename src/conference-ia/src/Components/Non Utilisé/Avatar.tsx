@@ -3,8 +3,9 @@ import "../css/Avatar.css";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 import { createAvatarSynthesizer, createWebRTCConnection } from "./Utility";
 import { avatarAppConfig } from "./config";
-import Carousel from "./Carousel";
-import DescriptionSpot from "./DescriptionSpot";
+import Carousel from "../Carousel";
+import DescriptionSpot from "../DescriptionSpot";
+import TextToSpeech from "../TextToSpeech";
 
 interface AvatarProps {
   conferenceText: string;
@@ -17,6 +18,7 @@ const Avatar = ({ conferenceText, images }: AvatarProps) => {
   const myAvatarVideoEleRef = useRef<HTMLVideoElement>(null);
   const myAvatarAudioEleRef = useRef<HTMLAudioElement>(null);
   const [description, setDescription] = useState<string>("");
+  const [isAvatarStarted, setIsAvatarStarted] = useState<boolean>(false);
   const iceUrl = avatarAppConfig.iceUrl;
   const iceUsername = avatarAppConfig.iceUsername;
   const iceCredential = avatarAppConfig.iceCredential;
@@ -66,6 +68,7 @@ const Avatar = ({ conferenceText, images }: AvatarProps) => {
     avatarSynthesizer.speakTextAsync(text).then((result: any) => {
         if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
             console.log("Speech and avatar synthesized to video stream.");
+            setIsAvatarStarted(true);
         } else {
             console.log("Unable to speak. Result ID: " + result.resultId);
             if (result.reason === SpeechSDK.ResultReason.Canceled) {
@@ -104,6 +107,7 @@ const startSession = async () => {
         console.log("Speech and avatar synthesized to video stream.");
       }
       console.log('[' + new Date().toISOString() + '] Avatar started.');
+      setIsAvatarStarted(true);
     })
     .catch((error) => {
       console.log(
@@ -118,20 +122,20 @@ const startSession = async () => {
 
 
   useEffect(() => {
-    if(conferenceText){
-      startSession();
-      speakSelectedText(conferenceText);
-      setTimeout(() => {
-        if(avatarSynthesizer){
-          setDescription(conferenceText); 
-        }else{
-          setDescription("L'avatar n'a pas pu démarrer la session");
-        }
-      }, 7000);
-    }else{
-      setDescription("Nous n'avons pas pu récupérer les données de la conférence");
-    }
+    startSession();    
   }, []);
+
+
+  useEffect(() => {
+    setTimeout(setDescription, 1000,conferenceText);
+  }, [isAvatarStarted]);
+
+
+  useEffect(() => {
+    if (description) {
+      speakSelectedText(conferenceText);
+    }
+  }, [description]);
 
   return (
     <div className="container myAvatarContainer flex-row">
@@ -139,16 +143,10 @@ const startSession = async () => {
   
         <Carousel imagesUrls={images} />
   
-        <div className="myAvatarVideo">
-          <div id="myAvatarVideo" className="myVideoDiv" ref={myAvatarVideoRef}>
-            <video className="myAvatarVideoElement" ref={myAvatarVideoEleRef}></video>
-            <audio ref={myAvatarAudioEleRef}></audio>
-          </div>
-        </div>
+        <TextToSpeech content={conferenceText} />
 
         <DescriptionSpot description={description} />
         
-  
       </div>
     </div>
   );

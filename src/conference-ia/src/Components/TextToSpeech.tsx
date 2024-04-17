@@ -13,7 +13,7 @@ const TextToSpeech: React.FC<ConferenceContext> = ({ content }) => {
       
       const key : string = import.meta.env.VITE_COG_SVC_SUB_KEY;
       console.log(key);
-      let speechConfig = sdk.SpeechConfig.fromSubscription(key, "westeurope");
+      let speechConfig = sdk.SpeechConfig.fromSubscription(key, import.meta.env.VITE_COG_SVC_REGION);
       speechConfig.speechSynthesisVoiceName = "fr-FR-CoralieNeural";
       let synthesizer = new sdk.SpeechSynthesizer(speechConfig);
 

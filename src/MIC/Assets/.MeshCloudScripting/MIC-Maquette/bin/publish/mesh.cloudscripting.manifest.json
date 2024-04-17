@@ -19,8 +19,8 @@
   "subscriptionId": "1310286d-4161-404b-b6eb-6a936fac3555",
   "wasLastProvisionAppSuccessful": "True",
   "wasLastDeployAppSuccessful": null,
-  "wasLastUploadBlobSuccessful": "True",
-  "meshAppBuildId": "afad3546-2fda-436b-8b02-4b1b7364394a",
+  "wasLastUploadBlobSuccessful": "False",
+  "meshAppBuildId": "5563a566-c9c1-4dd4-a96b-f4eb355d4bde",
   "debugTimeoutSecs": 120,
   "provisionState": "Inactive"
 }

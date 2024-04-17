@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1325597202
+CRC: 108473141
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 96472d0c8654c21168b39007aa172e57
+    Hash: 969be5cf908ef22f7be47086344510ac
   TypeTreeHash:
     serializedVersion: 2
     Hash: 065e87a1ab79ec8832e2b809fee48f84
@@ -127,4 +127,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/MeshToolkit/Temp/AssetCopies/eb101d55/0/MIC-Maquette.unity
 Dependencies:
-- C:/Users/MissonOscar/Desktop/Mesh-Innovate-Connect/src/MIC/Assets/MeshToolkit/Temp/Export~/meshfonts_android.unity3d
+- C:/Users/Thoma/Desktop/Mesh-Innovate-Connect/src/MIC/Assets/MeshToolkit/Temp/Export~/meshfonts_android.unity3d

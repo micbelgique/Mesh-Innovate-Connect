@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nieG3lSSKUlphUMQZZ13q3WJoZchA1z7pb51EdWQX9zGew69MbLPv0Z1uMSDmkGoRfVSV7jafRF6OgIdM6i+cw==",
+  "dgSpecHash": "LGEzcBaPAKER4YNybfZPA+myzHOahcW9Gvq7rjpHoa/QzsBhM4lzTishTJ03uK9U8jCqk72IVrekp7al62e+Fw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\mic-maquette\\MIC-Maquette.csproj",
+  "projectFilePath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thoma\\.nuget\\packages\\cliwrap\\3.4.1\\cliwrap.3.4.1.nupkg.sha512",
     "C:\\Users\\Thoma\\.nuget\\packages\\commandlineparser\\2.8.0\\commandlineparser.2.8.0.nupkg.sha512",

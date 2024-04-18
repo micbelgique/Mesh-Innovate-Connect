@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TextToSpeech from './TextToSpeech';
 import Carousel from './Carousel';
 import DescriptionSpot from './DescriptionSpot';
-import "../css/Conference.css"
+
 
 
 

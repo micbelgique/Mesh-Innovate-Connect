@@ -13,22 +13,17 @@ const CreateConference: React.FC = () => {
       setMessage('Vous devez écrire un contexte.');
       return;
     }
-  
-    if (/^\d+$/.test(title)) {
-      setMessage('Le titre ne doit pas contenir que des chiffres.');
-      return;
-    }
 
     setIsLoading(true);
     setMessage('Création en cours...');
 
     try {
-      const response = await fetch('https://api-generateconference.azurewebsites.net//Conference/CreateConference', {
+      const response = await fetch('https://api-generateconference.azurewebsites.net/Conference/CreateConference', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Prompt : title })
+        body: JSON.stringify({ Prompt: title })
       });
 
       if (response.ok) {
@@ -44,22 +39,36 @@ const CreateConference: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Création d'une conférence</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 space-y-10">
+      <h1 className="text-4xl font-bold text-blue-600">
+        Création d'une conférence
+      </h1>
+      <div className="flex flex-col items-center space-y-4">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           disabled={isLoading}
           required
+          className="px-4 py-2 border border-gray-300 rounded-md"
         />
-        <button type="submit" disabled={isLoading}>
-          Créer la conférence
+        <button 
+          type="submit" 
+          disabled={isLoading}
+          className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200"
+        >
+          Envoyer
         </button>
-      </form>
+      </div>
       <p>{message}</p>
-      <Link to="/">Retourner au menu principal</Link>
+      {!isLoading && (
+        <Link 
+          to="/" 
+          className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
+        >
+          Retourner à l'accueil
+        </Link>
+      )}
     </div>
   );
 };

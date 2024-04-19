@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'tailwindcss/tailwind.css';
 
 interface DescriptionSpotProps {
   description: string;
@@ -19,14 +20,14 @@ const DescriptionSpot: React.FC<DescriptionSpotProps> = ({ description }) => {
       } else {
         clearInterval(intervalId);
       }
-    }, 2000);
+    }, 1000);
 
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [description]);
 
   return (
-    <div className='descriptionArea'>
-      <p>{displayedText}</p>
+    <div className='w-full absolute bottom-0 bg-black bg-opacity-60 text-white font-bold animate-pulse p-20'>
+      <p className='text-4xl'>{displayedText}</p>
     </div>
   );
 };

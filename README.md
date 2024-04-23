@@ -28,10 +28,13 @@
 
   <h3>Product Owner</h3>
 
-  <p>Antoine Smet</p>
   <ul>
-    <li><a href="https://www.linkedin.com/in/antoinesmet/">LinkedIn</a></li>
-    <li><a href="https://github.com/AntoineSmet/AntoineSmet">GitHub</a></li>
+    <li>Antoine Smet
+      <ul>
+        <li><a href="https://www.linkedin.com/in/antoinesmet/">LinkedIn</a></li>
+        <li><a href="https://github.com/AntoineSmet/AntoineSmet">GitHub</a></li>
+      </ul>
+    </li>
   </ul>
 
   <h3>Développeurs</h3>

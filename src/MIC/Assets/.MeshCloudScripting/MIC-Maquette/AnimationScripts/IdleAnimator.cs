@@ -13,7 +13,7 @@ namespace MeshApp.Animations
     [UserCreatable(false)]
     public class IdleAnimator : AnimationNode
     {
-        private readonly float[] _baseLayerSpeeds = { 1F, };
+        private readonly float[] _baseLayerSpeeds = { 1F, 1F, };
 
         protected IdleAnimator(in Guid ahandle, bool transfer)
         : base(ahandle, transfer)
@@ -21,7 +21,8 @@ namespace MeshApp.Animations
 
         public enum BaseLayerState
         {
-            Idle,
+            Idle_251087,
+            DanceGraceful_250999,
         }
 
         [Replication(ReplicationKind.Full)]
@@ -44,13 +45,6 @@ namespace MeshApp.Animations
         {
             get => (long)GetPropertyAccessor(nameof(SystemTimeOfBaseLayerUpdated));
             set => GetPropertyAccessor(nameof(SystemTimeOfBaseLayerUpdated)).SetValue(value);
-        }
-
-        [Replication(ReplicationKind.Full)]
-        public float Blend
-        {
-            get => (float)this[nameof(Blend)];
-            set => this[nameof(Blend)].SetValue(value);
         }
 
         internal static IdleAnimator GetOrCreateInstance(in Guid cookie, bool transfer)

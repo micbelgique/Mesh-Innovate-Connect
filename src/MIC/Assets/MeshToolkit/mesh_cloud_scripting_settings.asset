@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: -148266603, guid: 1a5a94aed3950044397e4fa3cd8f8453, type: 3}
   m_Name: mesh_cloud_scripting_settings
   m_EditorClassIdentifier: 
-  _enableApplicationDebugging: 1
+  _enableApplicationDebugging: 0
   _runHubAutomatically: 1
   _mockUserDisplayName: Mock User Display Name
   _mockUserPersistentId: Mock Persistent Id

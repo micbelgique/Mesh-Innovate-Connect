@@ -4338,25 +4338,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Thoma\\.nuget\\packages\\": {},
+    "C:\\Users\\MissonOscar\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
+      "projectUniqueName": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
       "projectName": "MIC-Maquette",
-      "projectPath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
-      "packagesPath": "C:\\Users\\Thoma\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\obj\\",
+      "projectPath": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\MIC-Maquette.csproj",
+      "packagesPath": "C:\\Users\\MissonOscar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\NuGet.Config",
-        "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\NuGet.Config",
-        "C:\\Users\\Thoma\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\MIC-Maquette\\NuGet.Config",
+        "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\NuGet.Config",
+        "C:\\Users\\MissonOscar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4365,7 +4365,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Thoma\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\.Packages\\9.23154.3": {},
+        "C:\\Users\\MissonOscar\\Desktop\\Mesh-Innovate-Connect\\src\\MIC\\Assets\\.MeshCloudScripting\\.Packages\\9.23154.3": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4429,7 +4429,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

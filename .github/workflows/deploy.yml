@@ -1,15 +1,16 @@
 name: Deploy
 
 on:
-    workflow_dispatch
+    push:
+
+defaults:
+  run:
+    working-directory: src/conference-ia
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /src/conference-ia/
 
     steps:
       - name: Checkout repo
@@ -36,9 +37,6 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /src/conference-ia/
     if: github.ref == 'refs/heads/develop'
 
     steps:

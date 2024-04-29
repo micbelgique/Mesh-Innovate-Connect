@@ -272,46 +272,6 @@
 
             }
         }
-
-
-        static async Task<List<DescriptionLogitech>> GetLogitechDescriptions()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    var request = new HttpRequestMessage(HttpMethod.Get, "https://stma86a4449dc84f4d2bwe.blob.core.windows.net/logitech-descriptions/logitechDescriptions.json?sp=r&st=2024-04-26T09:20:01Z&se=2024-04-26T17:20:01Z&spr=https&sv=2022-11-02&sr=c&sig=Udz0t8FcEqd6SR4pXdrjfvoI51U2sdRFvPU627Hq32o%3D");
-                    var response = await client.SendAsync(request);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonString = await response.Content.ReadAsStringAsync();
-
-
-                        List<DescriptionLogitech> descriptions = JsonConvert.DeserializeObject<List<DescriptionLogitech>>(jsonString);
-
-                        return descriptions;
-                    }
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    // Gérer les exceptions
-                    Console.WriteLine($"Une erreur s'est produite lors de la récupération du contenu du blob : {ex.Message}");
-                    return null;
-                }
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
         public async Task<string> GetImage(TransformNode node, string imageUrl)
         {
             using (HttpClient client = new HttpClient())

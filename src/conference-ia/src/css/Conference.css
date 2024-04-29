@@ -1,0 +1,62 @@
+body {
+    background-color: rgb(254, 254, 254);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
+    overflow: hidden;
+}
+
+.div-parent > div {
+    padding: 5px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  
+  .images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .images * {
+    width: 80%;
+  }
+  
+  @keyframes fadeInOut {
+    0% {opacity: 0;}
+    10% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+  }
+  
+  .descriptionArea {
+    position: absolute;
+    bottom: 0;
+    left: 0.75%; 
+    width: 80vh;
+    height: 18vh;
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px; 
+    font-family: cursive;
+    background: rgba(0, 0, 0, 0.7);
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .descriptionArea p {
+    animation: fadeInOut 7s linear infinite;
+  }
+  
+  
+.descriptionArea {
+    width: 100%;
+    left: 0;
+}
+  

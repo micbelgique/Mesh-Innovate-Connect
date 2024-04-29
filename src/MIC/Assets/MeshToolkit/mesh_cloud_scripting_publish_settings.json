@@ -1,0 +1,24 @@
+{
+  "ee4a7b46-448d-47ef-a41c-3220a1dcce79": {
+    "mode": "Dev",
+    "location": "DefaultLocation",
+    "enableAppMonitoring": true,
+    "lastDeployedEndpoint": ""
+  },
+  "014cd69c-8fd0-453e-b083-56bd57a86cf5": {
+    "subscriptionID": "1310286d-4161-404b-b6eb-6a936fac3555",
+    "resourceGroup": "rg-meshInnovateCreate-westeurope-dev-001",
+    "mode": "Dev",
+    "location": "DefaultLocation",
+    "enableAppMonitoring": true,
+    "lastDeployedEndpoint": ""
+  },
+  "eb101d55-01c1-4e53-b67b-f5e0d98b1655": {
+    "subscriptionID": "1310286d-4161-404b-b6eb-6a936fac3555",
+    "resourceGroup": "rg-meshInnovateCreate-westeurope-dev-001",
+    "mode": "Prod",
+    "location": "westeurope",
+    "enableAppMonitoring": true,
+    "lastDeployedEndpoint": ""
+  }
+}

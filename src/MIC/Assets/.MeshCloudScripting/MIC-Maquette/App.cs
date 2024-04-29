@@ -7,21 +7,18 @@
     using Newtonsoft.Json;
     using System.IO;
     using System.Net.Http.Headers;
-    using Presentation1;
     using System.Threading;
     using System.Collections;
     using System.Numerics;
-    using Presentation1.Models;
     using System.Text;
 
     public class AppSettings
     {
-        public DeepEyesSettings DeepEyes { get; set; }
+        public BlobStorageSettings BlobStorage { get; set; }
     }
-    public class DeepEyesSettings
+    public class BlobStorageSettings
     {
-        public string Url { get; set; }
-        public string Token { get; set; }
+        public string BlobUrl { get; set; }
     }
 
     public class App : IHostedService, IAsyncDisposable
@@ -29,8 +26,6 @@
         private readonly ILogger<App> _logger;
         private readonly ICloudApplication _app;
         private readonly AppSettings _appSettings;
-        private readonly PersonFlow _personFlow;
-        private readonly List<QLearning> _qLearnings;
         private CancellationTokenSource cts1 = new CancellationTokenSource();
         private CancellationTokenSource cts2 = new CancellationTokenSource();
         private CancellationTokenSource cts3 = new CancellationTokenSource();
@@ -47,12 +42,12 @@
             _app = app;
             _logger = logger;
             _appSettings = LoadSettings();
-            _personFlow = new PersonFlow();
-            _qLearnings = new List<QLearning>();
+            //_personFlow = new PersonFlow();
+            //_qLearnings = new List<QLearning>();
             for (int i = 0; i < 5; i++)
             {
                 int numStates = 1800;
-                _qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.7, 1, 0));
+                //_qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.7, 1, 0));
             }
         }
         private AppSettings? LoadSettings()
@@ -77,93 +72,245 @@
                 return null;
             }
         }
+
+
+
         public async Task StartAsync(CancellationToken token)
         {
             //Deep Eyes
-            var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
-            var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();
-            var btnCube = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonCube");
-            var sensorCube = btnCube.FindFirstChild<InteractableNode>();
-            sensorCube.Selected += async (sender, args) =>
-            {
-                await UploadImageToBlobStorage(1, _appSettings);
-                btnCube.IsActive = false;
-            };
-            sensorSphere.Selected += async (sender, args) =>
-            {
-                await UploadImageToBlobStorage(2, _appSettings);
-                btnSphere.IsActive = false;
-            };
+            //var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
+            //var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();
+            //var btnCube = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonCube");
+            //var sensorCube = btnCube.FindFirstChild<InteractableNode>();
+            //sensorCube.Selected += async (sender, args) =>
+            //{
+            //    await UploadImageToBlobStorage(1, _appSettings);
+            //    btnCube.IsActive = false;
+            //};
+            //sensorSphere.Selected += async (sender, args) =>
+            //{
+            //    await UploadImageToBlobStorage(2, _appSettings);
+            //    btnSphere.IsActive = false;
+            //};
             // Machine Learning
-            var btnSimulationCafe = (TransformNode)_app.Scene.FindChildByPath("Simulation/ButtonCafe");
-            var sensorCafe = btnSimulationCafe.FindFirstChild<InteractableNode>();
-            var btnSImulationInnover = (TransformNode)_app.Scene.FindChildByPath("Simulation/ButtonInnover");
-            var sensorInnover = btnSImulationInnover.FindFirstChild<InteractableNode>();
-            sensorCafe.Selected += async (sender, args) =>
-            {
-                await StartSimulation("Cafe");
-            };
-            sensorInnover.Selected += async (sender, args) =>
-            {
-                await StartSimulation("Innover");
-            };
 
+
+
+            List<DescriptionLogitech> descriptions = new List<DescriptionLogitech>();
+
+            descriptions = await GetLogitechDescriptions(new Uri(_appSettings.BlobStorage.BlobUrl));
+
+            if (descriptions != null)
+            {
+                // Site Logitech
+                var siteCockpit = (TransformNode)_app.Scene.FindChildByPath("Logitech/SiteCockpit");
+                var screenCockpit = (TransformNode)siteCockpit.FindChildByPath("WebSlate");
+                var webCockpit = screenCockpit.FindFirstChild<WebSlateNode>();
+
+                var siteScheduler1 = (TransformNode)_app.Scene.FindChildByPath("Logitech/SiteSchedulerCockpit");
+                var screenScheduler = (TransformNode)siteCockpit.FindChildByPath("WebSlate");
+                var webScheduler1 = screenScheduler.FindFirstChild<WebSlateNode>();
+
+                var siteScheduler2 = (TransformNode)_app.Scene.FindChildByPath("Logitech/SiteStudio");
+                var screenScheduler2 = (TransformNode)siteCockpit.FindChildByPath("WebSlate");
+                var webScheduler2 = screenScheduler2.FindFirstChild<WebSlateNode>();
+
+
+                // Logitech
+                var btnLogiSight = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracSight");
+                var sensorLogiSight = btnLogiSight.FindFirstChild<InteractableNode>();
+
+                var btnTapIp = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracTapIP");
+                var sensorTapIp = btnTapIp.FindFirstChild<InteractableNode>();
+
+                var btnScribe = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracScribe");
+                var sensorScribe = btnScribe.FindFirstChild<InteractableNode>();
+
+                var btnRallyBar = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracRallyBar");
+                var sensorRallyBar = btnRallyBar.FindFirstChild<InteractableNode>();
+
+                var btnScheduler1 = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracScheduler1");
+                var sensorScheduler1 = btnScheduler1.FindFirstChild<InteractableNode>();
+
+                var btnScheduler2 = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracScheduler2");
+                var sensorScheduler2 = btnScheduler2.FindFirstChild<InteractableNode>();
+
+                var btnScheduler3 = (TransformNode)_app.Scene.FindChildByPath("Logitech/InteracScheduler3");
+                var sensorScheduler3 = btnScheduler3.FindFirstChild<InteractableNode>();
+
+
+
+                sensorLogiSight.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "Sight");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteCockpit.IsActive)
+                    {
+                        siteCockpit.IsActive = false;
+                        Task.Delay(3000);
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                    else
+                    {
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                };
+
+                sensorTapIp.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "TapIP");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteCockpit.IsActive)
+                    {
+                        siteCockpit.IsActive = false;
+                        Task.Delay(3000);
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                    else
+                    {
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                };
+
+                sensorScribe.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "Scribe");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteCockpit.IsActive)
+                    {
+                        siteCockpit.IsActive = false;
+                        Task.Delay(3000);
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                    else
+                    {
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                };
+
+                sensorRallyBar.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "Rally Bar");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteCockpit.IsActive)
+                    {
+                        siteCockpit.IsActive = false;
+                        Task.Delay(3000);
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                    else
+                    {
+                        webCockpit.Url = newUrl;
+                        siteCockpit.IsActive = true;
+                    }
+                };
+
+                sensorScheduler1.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "Scheduler");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteScheduler1.IsActive)
+                    {
+                        siteScheduler1.IsActive = false;
+                        Task.Delay(3000);
+                        webScheduler1.Url = newUrl;
+                        siteScheduler1.IsActive = true;
+                    }
+                    else
+                    {
+                        webScheduler1.Url = newUrl;
+                        siteScheduler1.IsActive = true;
+                    }
+                };
+
+                sensorScheduler2.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "Scheduler");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteScheduler1.IsActive)
+                    {
+                        siteScheduler1.IsActive = false;
+                        Task.Delay(3000);
+                        webScheduler1.Url = newUrl;
+                        siteScheduler1.IsActive = true;
+                    }
+                    else
+                    {
+                        webScheduler1.Url = newUrl;
+                        siteScheduler1.IsActive = true;
+                    }
+                };
+
+                sensorScheduler3.Selected += async (sender, args) =>
+                {
+                    DescriptionLogitech descriptionTrouvee = descriptions.FirstOrDefault(desc => desc.Nom == "Scheduler");
+                    Uri newUrl = new Uri(descriptionTrouvee.Lien);
+                    if (siteScheduler2.IsActive)
+                    {
+                        siteScheduler2.IsActive = false;
+                        Task.Delay(3000);
+                        webScheduler2.Url = newUrl;
+                        siteScheduler2.IsActive = true;
+                    }
+                    else
+                    {
+                        webScheduler2.Url = newUrl;
+                        siteScheduler2.IsActive = true;
+                    }
+                };
+
+
+
+
+
+            }
         }
 
 
-
-        public static async Task<bool> AskNewConference(string prompt)
+        static async Task<List<DescriptionLogitech>> GetLogitechDescriptions()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7177/Conference/CreateConference");
-                    request.Headers.Add("Content", "application/json");
-                    var jsonContent = JsonConvert.SerializeObject(new ConferenceDataModel { Prompt = prompt });
-                    request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    var request = new HttpRequestMessage(HttpMethod.Get, "https://stma86a4449dc84f4d2bwe.blob.core.windows.net/logitech-descriptions/logitechDescriptions.json?sp=r&st=2024-04-26T09:20:01Z&se=2024-04-26T17:20:01Z&spr=https&sv=2022-11-02&sr=c&sig=Udz0t8FcEqd6SR4pXdrjfvoI51U2sdRFvPU627Hq32o%3D");
                     var response = await client.SendAsync(request);
-                    response.EnsureSuccessStatusCode();
-                    return response.IsSuccessStatusCode;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+
+                        List<DescriptionLogitech> descriptions = JsonConvert.DeserializeObject<List<DescriptionLogitech>>(jsonString);
+
+                        return descriptions;
+                    }
+                    return null;
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    // Gérer les exceptions
+                    Console.WriteLine($"Une erreur s'est produite lors de la récupération du contenu du blob : {ex.Message}");
+                    return null;
                 }
             }
         }
 
-        public async Task StartSimulation(string simulationAction) //0 to go to the coffee 
-        {
-            Vector3 destination = destinationsList[simulationAction];
-            var npc1 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character");
-            var npc2 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character1");
-            var npc3 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character2");
-            var npc4 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character3");
-            var npc5 = (TransformNode)_app.Scene.FindChildByPath("HumanMale_Character4");
 
-            cts1.Cancel();
-            cts2.Cancel();
-            cts3.Cancel();
-            cts4.Cancel();
-            cts5.Cancel();
 
-            cts1 = new CancellationTokenSource();
-            cts2 = new CancellationTokenSource();
-            cts3 = new CancellationTokenSource();
-            cts4 = new CancellationTokenSource();
-            cts5 = new CancellationTokenSource();
 
-            _qLearnings[0].MoveAction(npc1, destination, simulationAction, 0, 10000, cts1.Token);
-            await Task.Delay(50);
-            _qLearnings[1].MoveAction(npc2, destination, simulationAction, 1, 10000, cts2.Token);
-            await Task.Delay(50);
-            _qLearnings[2].MoveAction(npc3, destination, simulationAction, 2, 10000, cts3.Token);
-            await Task.Delay(50);
-            _qLearnings[3].MoveAction(npc4, destination, simulationAction, 3, 10000, cts4.Token);
-            await Task.Delay(50);
-            _qLearnings[4].MoveAction(npc5, destination, simulationAction, 4, 10000, cts5.Token);
-        }
+
+
+
+
+
+
 
         public async Task<string> GetImage(TransformNode node, string imageUrl)
         {
@@ -177,25 +324,53 @@
                 return imageUrl;
             }
         }
-        static async Task UploadImageToBlobStorage(int choice, AppSettings appSettings)
+
+        static async Task<List<DescriptionLogitech>> GetLogitechDescriptions(Uri blobUrl)
         {
-            string blobName = choice == 1 ? "cube.jpg" : "sphere.jpg";
-            string imageUrl = choice == 1 ? "https://images.pexels.com/photos/1340185/pexels-photo-1340185.jpeg?cs=srgb&dl=pexels-magda-ehlers-1340185.jpg&fm=jpg" : "https://images.unsplash.com/photo-1617358142775-4be217d9cc19?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BoZXJlfGVufDB8fDB8fHww";
-            HttpClient httpClient = new HttpClient();
-            var imageData = await httpClient.GetByteArrayAsync(imageUrl);
-            string blobUrl = $"{appSettings.DeepEyes.Url}{blobName}{appSettings.DeepEyes.Token}";
-            using (MemoryStream memoryStream = new MemoryStream(imageData))
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    ByteArrayContent content = new ByteArrayContent(memoryStream.ToArray());
-                    content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-                    content.Headers.Add("x-ms-blob-type", "BlockBlob");
-                    HttpResponseMessage response = await client.PutAsync(blobUrl, content);
-                    Console.WriteLine(response.StatusCode);
+                    var request = new HttpRequestMessage(HttpMethod.Get, blobUrl);
+                    var response = await client.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        List<DescriptionLogitech> descriptions = JsonConvert.DeserializeObject<List<DescriptionLogitech>>(jsonString);
+                        return descriptions;
+                    }
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    // Gérer les exceptions
+                    Console.WriteLine($"Une erreur s'est produite lors de la récupération du contenu du blob : {ex.Message}");
+                    return null;
                 }
             }
         }
+
+        //static async Task UploadImageToBlobStorage(int choice, AppSettings appSettings)
+        //{
+        //    string blobName = choice == 1 ? "cube.jpg" : "sphere.jpg";
+        //    string imageUrl = choice == 1 ? "https://images.pexels.com/photos/1340185/pexels-photo-1340185.jpeg?cs=srgb&dl=pexels-magda-ehlers-1340185.jpg&fm=jpg" : "https://images.unsplash.com/photo-1617358142775-4be217d9cc19?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BoZXJlfGVufDB8fDB8fHww";
+        //    HttpClient httpClient = new HttpClient();
+        //    var imageData = await httpClient.GetByteArrayAsync(imageUrl);
+        //    string blobUrl = $"{appSettings.DeepEyes.Url}{blobName}{appSettings.DeepEyes.Token}";
+        //    using (MemoryStream memoryStream = new MemoryStream(imageData))
+        //    {
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            ByteArrayContent content = new ByteArrayContent(memoryStream.ToArray());
+        //            content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+        //            content.Headers.Add("x-ms-blob-type", "BlockBlob");
+        //            HttpResponseMessage response = await client.PutAsync(blobUrl, content);
+        //            Console.WriteLine(response.StatusCode);
+        //        }
+        //    }
+        //}
+
+
         /// <inheritdoc/>
         public Task StopAsync(CancellationToken token)
         {

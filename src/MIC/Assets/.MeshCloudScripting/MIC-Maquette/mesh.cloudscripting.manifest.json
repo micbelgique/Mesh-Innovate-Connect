@@ -20,7 +20,7 @@
   "wasLastProvisionAppSuccessful": "True",
   "wasLastDeployAppSuccessful": null,
   "wasLastUploadBlobSuccessful": "True",
-  "meshAppBuildId": "a33e4349-76d0-4bec-a0f7-4a87b265d06a",
+  "meshAppBuildId": "0b159bf5-3fc5-412e-9d88-123eb7d91c70",
   "debugTimeoutSecs": 120,
   "provisionState": "Inactive"
 }

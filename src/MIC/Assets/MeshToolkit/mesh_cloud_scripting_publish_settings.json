@@ -16,8 +16,8 @@
   "eb101d55-01c1-4e53-b67b-f5e0d98b1655": {
     "subscriptionID": "1310286d-4161-404b-b6eb-6a936fac3555",
     "resourceGroup": "rg-meshInnovateCreate-westeurope-dev-001",
-    "mode": "Dev",
-    "location": "DefaultLocation",
+    "mode": "Prod",
+    "location": "westeurope",
     "enableAppMonitoring": true,
     "lastDeployedEndpoint": ""
   }

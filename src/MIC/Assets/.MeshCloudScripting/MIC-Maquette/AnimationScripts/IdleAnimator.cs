@@ -21,8 +21,8 @@ namespace MeshApp.Animations
 
         public enum BaseLayerState
         {
-            Idle_251087,
-            DanceGraceful_250999,
+            Idle,
+            Walk,
         }
 
         [Replication(ReplicationKind.Full)]

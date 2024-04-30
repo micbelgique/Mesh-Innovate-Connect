@@ -24,11 +24,12 @@
 /[Aa]ssets/Plugins/Editor/JetBrains*
 
 # Ignore tokens
-/[Aa]ssets/.MeshCloudScripting/Presentation1/mesh.cloudscripting.manifest.json
-/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.json
-/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.Development.json
-/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.Production.json
-/[Aa]ssets/.MeshCloudScripting/Presentation1/appsettings.UnityLocalDev.json
+/[Aa]ssets/.MeshCloudScripting/MIC-Maquette/mesh.cloudscripting.manifest.json
+/[Aa]ssets/.MeshCloudScripting/MIC-Maquette/appsettings.json
+/[Aa]ssets/.MeshCloudScripting/MIC-Maquette/appsettings.Development.json
+/[Aa]ssets/.MeshCloudScripting/MIC-Maquette/appsettings.Production.json
+/[Aa]ssets/.MeshCloudScripting/MIC-Maquette/appsettings.UnityLocalDev.json
+/[Aa]ssets/.MeshCloudScripting/MIC-Maquette/bin/
 
 
 # Visual Studio cache directory

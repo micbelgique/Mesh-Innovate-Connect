@@ -3,40 +3,10 @@ import { Link } from 'react-router-dom';
 
 const CreateConference: React.FC = () => {
   const [title, setTitle] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [isLoading] = useState(false);
+  const [message] = useState('');
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!title || !title.trim()) {
-      setMessage('Vous devez écrire un contexte.');
-      return;
-    }
-
-    setIsLoading(true);
-    setMessage('Création en cours...');
-
-    try {
-      const response = await fetch('https://api-generateconference.azurewebsites.net/Conference/CreateConference', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ Prompt: title })
-      });
-
-      if (response.ok) {
-        setMessage('La conférence a été créée.');
-      } else {
-        setMessage('La création de la conférence a échoué.');
-      }
-    } catch (error) {
-      setMessage('Une erreur est survenue lors de la création de la conférence.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 space-y-10">

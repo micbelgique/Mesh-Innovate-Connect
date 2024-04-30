@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function Carousel({ imagesUrls }: { imagesUrls: string[] }) {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);

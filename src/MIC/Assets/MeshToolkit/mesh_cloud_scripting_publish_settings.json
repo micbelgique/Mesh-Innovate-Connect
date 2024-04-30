@@ -16,8 +16,16 @@
   "eb101d55-01c1-4e53-b67b-f5e0d98b1655": {
     "subscriptionID": "1310286d-4161-404b-b6eb-6a936fac3555",
     "resourceGroup": "rg-meshInnovateCreate-westeurope-dev-001",
-    "mode": "Prod",
-    "location": "westeurope",
+    "mode": "Dev",
+    "location": "DefaultLocation",
+    "enableAppMonitoring": true,
+    "lastDeployedEndpoint": ""
+  },
+  "16b89a0b-9d4c-4de9-8b96-fe0801944dda": {
+    "subscriptionID": "1310286d-4161-404b-b6eb-6a936fac3555",
+    "resourceGroup": "rg-meshInnovateCreate-westeurope-dev-001",
+    "mode": "Dev",
+    "location": "DefaultLocation",
     "enableAppMonitoring": true,
     "lastDeployedEndpoint": ""
   }

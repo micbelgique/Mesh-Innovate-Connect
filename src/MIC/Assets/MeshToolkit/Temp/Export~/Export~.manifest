@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2193672349
+CRC: 55658386
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: eb101d55_android.unity3d
+      Name: 16b89a0b_android.unity3d
       Dependencies:
         Dependency_0: meshfonts_android.unity3d
     Info_1:

@@ -14,9 +14,10 @@
 
     public class AppSettings
     {
-        public BlobStorageSettings BlobStorage { get; set; }
+        public Logitech Logitech { get; set; }
     }
-    public class BlobStorageSettings
+   
+    public class Logitech
     {
         public string BlobUrl { get; set; }
     }
@@ -50,7 +51,7 @@
                 //_qLearnings.Add(new QLearning(numStates, 8, 0.7, 0.7, 1, 0));
             }
         }
-        private AppSettings? LoadSettings()
+        private static AppSettings LoadSettings()
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
             if (File.Exists(filePath))
@@ -62,43 +63,21 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"Error loading appsettings.json: {ex.Message}");
                     return null;
                 }
             }
             else
             {
-                _logger.LogWarning("appsettings.json not found.");
                 return null;
             }
         }
-
-
-
+    
         public async Task StartAsync(CancellationToken token)
         {
-            //Deep Eyes
-            //var btnSphere = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonSphere");
-            //var sensorSphere = btnSphere.FindFirstChild<InteractableNode>();
-            //var btnCube = (TransformNode)_app.Scene.FindChildByPath("CubeOrSphere/ButtonCube");
-            //var sensorCube = btnCube.FindFirstChild<InteractableNode>();
-            //sensorCube.Selected += async (sender, args) =>
-            //{
-            //    await UploadImageToBlobStorage(1, _appSettings);
-            //    btnCube.IsActive = false;
-            //};
-            //sensorSphere.Selected += async (sender, args) =>
-            //{
-            //    await UploadImageToBlobStorage(2, _appSettings);
-            //    btnSphere.IsActive = false;
-            //};
-            // Machine Learning
-
-
 
             List<DescriptionLogitech> descriptions = new List<DescriptionLogitech>();
 
-            descriptions = await GetLogitechDescriptions(new Uri(_appSettings.BlobStorage.BlobUrl));
+            descriptions = await GetLogitechDescriptions();
 
             if (descriptions != null)
             {
@@ -108,11 +87,11 @@
                 var webCockpit = screenCockpit.FindFirstChild<WebSlateNode>();
 
                 var siteScheduler1 = (TransformNode)_app.Scene.FindChildByPath("Logitech/SiteSchedulerCockpit");
-                var screenScheduler = (TransformNode)siteCockpit.FindChildByPath("WebSlate");
+                var screenScheduler = (TransformNode)siteScheduler1.FindChildByPath("WebSlate");
                 var webScheduler1 = screenScheduler.FindFirstChild<WebSlateNode>();
 
                 var siteScheduler2 = (TransformNode)_app.Scene.FindChildByPath("Logitech/SiteStudio");
-                var screenScheduler2 = (TransformNode)siteCockpit.FindChildByPath("WebSlate");
+                var screenScheduler2 = (TransformNode)siteScheduler2.FindChildByPath("WebSlate");
                 var webScheduler2 = screenScheduler2.FindFirstChild<WebSlateNode>();
 
 
@@ -147,7 +126,6 @@
                     if (siteCockpit.IsActive)
                     {
                         siteCockpit.IsActive = false;
-                        Task.Delay(3000);
                         webCockpit.Url = newUrl;
                         siteCockpit.IsActive = true;
                     }
@@ -165,7 +143,6 @@
                     if (siteCockpit.IsActive)
                     {
                         siteCockpit.IsActive = false;
-                        Task.Delay(3000);
                         webCockpit.Url = newUrl;
                         siteCockpit.IsActive = true;
                     }
@@ -183,7 +160,6 @@
                     if (siteCockpit.IsActive)
                     {
                         siteCockpit.IsActive = false;
-                        Task.Delay(3000);
                         webCockpit.Url = newUrl;
                         siteCockpit.IsActive = true;
                     }
@@ -201,7 +177,6 @@
                     if (siteCockpit.IsActive)
                     {
                         siteCockpit.IsActive = false;
-                        Task.Delay(3000);
                         webCockpit.Url = newUrl;
                         siteCockpit.IsActive = true;
                     }
@@ -219,7 +194,6 @@
                     if (siteScheduler1.IsActive)
                     {
                         siteScheduler1.IsActive = false;
-                        Task.Delay(3000);
                         webScheduler1.Url = newUrl;
                         siteScheduler1.IsActive = true;
                     }
@@ -237,7 +211,6 @@
                     if (siteScheduler1.IsActive)
                     {
                         siteScheduler1.IsActive = false;
-                        Task.Delay(3000);
                         webScheduler1.Url = newUrl;
                         siteScheduler1.IsActive = true;
                     }
@@ -255,7 +228,6 @@
                     if (siteScheduler2.IsActive)
                     {
                         siteScheduler2.IsActive = false;
-                        Task.Delay(3000);
                         webScheduler2.Url = newUrl;
                         siteScheduler2.IsActive = true;
                     }
@@ -272,6 +244,8 @@
 
             }
         }
+
+
         public async Task<string> GetImage(TransformNode node, string imageUrl)
         {
             using (HttpClient client = new HttpClient())
@@ -285,8 +259,13 @@
             }
         }
 
-        static async Task<List<DescriptionLogitech>> GetLogitechDescriptions(Uri blobUrl)
+        static async Task<List<DescriptionLogitech>> GetLogitechDescriptions()
         {
+            AppSettings appSettings = LoadSettings();
+
+            string blobUrl = appSettings.Logitech.BlobUrl;
+
+
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -309,27 +288,6 @@
                 }
             }
         }
-
-        //static async Task UploadImageToBlobStorage(int choice, AppSettings appSettings)
-        //{
-        //    string blobName = choice == 1 ? "cube.jpg" : "sphere.jpg";
-        //    string imageUrl = choice == 1 ? "https://images.pexels.com/photos/1340185/pexels-photo-1340185.jpeg?cs=srgb&dl=pexels-magda-ehlers-1340185.jpg&fm=jpg" : "https://images.unsplash.com/photo-1617358142775-4be217d9cc19?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BoZXJlfGVufDB8fDB8fHww";
-        //    HttpClient httpClient = new HttpClient();
-        //    var imageData = await httpClient.GetByteArrayAsync(imageUrl);
-        //    string blobUrl = $"{appSettings.DeepEyes.Url}{blobName}{appSettings.DeepEyes.Token}";
-        //    using (MemoryStream memoryStream = new MemoryStream(imageData))
-        //    {
-        //        using (HttpClient client = new HttpClient())
-        //        {
-        //            ByteArrayContent content = new ByteArrayContent(memoryStream.ToArray());
-        //            content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-        //            content.Headers.Add("x-ms-blob-type", "BlockBlob");
-        //            HttpResponseMessage response = await client.PutAsync(blobUrl, content);
-        //            Console.WriteLine(response.StatusCode);
-        //        }
-        //    }
-        //}
-
 
         /// <inheritdoc/>
         public Task StopAsync(CancellationToken token)

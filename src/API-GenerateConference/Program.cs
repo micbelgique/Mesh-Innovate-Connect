@@ -9,7 +9,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
         builder =>
         {
-            builder.WithOrigins("http://localhost:5174", "http://localhost:5173", "http://localhost:5175")
+            builder.WithOrigins("https://wonderful-island-04d9a0e03.5.azurestaticapps.net/")
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });

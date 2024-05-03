@@ -11,8 +11,8 @@ interface ConferenceContext {
 const TextToSpeech: React.FC<ConferenceContext> = ({ content }) => {
     try {
       
-      const key : string = process.env.SPEECH_KEY || "";
-      const region : string = process.env.SPEECH_REGION || ""; 
+      const key : string = process.env.VITE_COG_SVC_SUB_KEY || "";
+      const region : string = process.env.VITE_COG_SVC_REGION || ""; 
       let speechConfig = sdk.SpeechConfig.fromSubscription(key, region);
       speechConfig.speechSynthesisVoiceName = "fr-FR-CoralieNeural";
       let synthesizer = new sdk.SpeechSynthesizer(speechConfig);

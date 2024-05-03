@@ -1,9 +1,10 @@
-name: Azure Static Web Apps CI/CD
+name: Azure Static Web Apps CI/CD - Client Conference IA
 
 on:
   push:
     branches:
-      -main
+      - main
+  workflow_dispatch :
 
 jobs:
   build_and_deploy_job:
@@ -19,16 +20,16 @@ jobs:
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_ROCK_04B9DE903 }}
-          speech_key: ${{ secrets.SPEECH_KEY}}
-          speech_region: ${{ secrets.SPEECH_REGION }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_ISLAND_04D9A0E03 }}
+          VITE_COG_SVC_REGION: ${{ secrets.SPEECH_REGION }}
+          VITE_COG_SVC_SUB_KEY: ${{ secrets.SPEECH_KEY }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/src/conference-ia/" # App source code path
           api_location: "" # Api source code path - optional
-          output_location: "/src/conference-ia/dist" # Built app content directory - optional
+          output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
@@ -40,5 +41,5 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_ROCK_04B9DE903 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_ISLAND_04D9A0E03 }}
           action: "close"

@@ -13,14 +13,14 @@
   "language": "C#",
   "latestAppId": "2f818376-bb24-4009-bef9-715de10aee41",
   "location": "westeurope",
-  "mode": "dev",
+  "mode": "Dev",
   "name": "MIC-Maquette",
   "resourceGroup": "rg-meshInnovateCreate-westeurope-dev-001",
   "subscriptionId": "1310286d-4161-404b-b6eb-6a936fac3555",
   "wasLastProvisionAppSuccessful": "True",
   "wasLastDeployAppSuccessful": null,
   "wasLastUploadBlobSuccessful": "True",
-  "meshAppBuildId": "01329c52-3855-48f4-afbd-10c2e0a758ac",
+  "meshAppBuildId": "ba0fcfab-ba53-4f76-8374-efd0444138f7",
   "debugTimeoutSecs": 120,
   "provisionState": "Inactive"
 }

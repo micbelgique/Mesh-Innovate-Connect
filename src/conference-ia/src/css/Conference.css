@@ -26,12 +26,6 @@ body {
     width: 80%;
   }
   
-  @keyframes fadeInOut {
-    0% {opacity: 0;}
-    10% {opacity: 1;}
-    90% {opacity: 1;}
-    100% {opacity: 0;}
-  }
   
   .descriptionArea {
     position: absolute;
@@ -49,11 +43,7 @@ body {
     justify-content: center;
     align-items: center;
   }
-  
-  .descriptionArea p {
-    animation: fadeInOut 7s linear infinite;
-  }
-  
+    
   
 .descriptionArea {
     width: 100%;

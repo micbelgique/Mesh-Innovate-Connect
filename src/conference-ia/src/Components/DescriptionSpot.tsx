@@ -14,20 +14,20 @@ const DescriptionSpot: React.FC<DescriptionSpotProps> = ({ description }) => {
 
     let intervalId = setInterval(() => {
       if (i < words.length) {
-        let newText = (i >= 10 ? words.slice(i - 9, i + 1) : words.slice(0, i + 1)).join(' ');
+        let newText = words.slice(i, i + 10).join(' ');
         setDisplayedText(newText);
-        i++;
+        i += 10;
       } else {
         clearInterval(intervalId);
       }
-    }, 1000);
-
+    }, 2000);
+  
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [description]);
 
   return (
-    <div className='w-full absolute bottom-0 bg-black bg-opacity-60 text-white font-bold animate-pulse p-20'>
-      <p className='text-4xl'>{displayedText}</p>
+    <div className='w-full absolute bottom-0 bg-black bg-opacity-60 text-white font-bold p-20'>
+      <p className='text-4xl text-center'>{displayedText}</p>
     </div>
   );
 };

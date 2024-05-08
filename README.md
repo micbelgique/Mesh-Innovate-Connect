@@ -20,17 +20,17 @@ Dans cette section, explorez trois applications distinctes qui font partie inté
 Installations 
 -------
 
-#MIC
+### MIC
 
 Posséder la version d'Unity 2022.3.7f
 
 
-#API-conference
+### API-conference
 
 Simplement cloner le repository et créer un "appsettings.json" avec un attribut BlobStorage   
 
 
-#Conference-IA
+### Conference-IA
 
 Pour installer les packages nécessaire pour React, TypeScript 
 <!-- npm i  -->

@@ -13,7 +13,7 @@ namespace MeshApp.Animations
     [UserCreatable(false)]
     public class SitAnimator : AnimationNode
     {
-        private readonly float[] _baseLayerSpeeds = { 0,2F, };
+        private readonly float[] _baseLayerSpeeds = { 0.2F, };
 
         protected SitAnimator(in Guid ahandle, bool transfer)
         : base(ahandle, transfer)

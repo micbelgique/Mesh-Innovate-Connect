@@ -4,3 +4,4 @@
       "exclude": ["/images/*.{png,jpg,gif}", "/static/*"]
     }
   }
+
